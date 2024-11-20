@@ -92,3 +92,10 @@ Problemas que Resuelve:
 5.	Análisis de Ventas: Permite obtener conclusiones de ventas por producto y categoría permitiendo analizar la tendencia de las mismas y la rentabilidad del negocio. También permite tener mayor control sobra las ventas por empleado y evaluar su rendimiento.
 
 Esta estructura permite un manejo eficiente y organizado de la información del café, facilitando la toma de decisiones y mejorando el servicio al cliente.
+
+
+DIAGRAMA ENTIDAD-RELACION (DER)
+
+![image](https://github.com/user-attachments/assets/a858b2f7-7f5f-4963-9b14-a7461206a69e)
+
+
