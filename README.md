@@ -98,4 +98,13 @@ DIAGRAMA ENTIDAD-RELACION (DER)
 
 ![image](https://github.com/user-attachments/assets/a858b2f7-7f5f-4963-9b14-a7461206a69e)
 
+Resumen de los Datos Insertados:
 
+- categoria_producto: Tres categorías: Bebidas, Comidas y Snacks.
+- producto: Se han añadido cinco productos en tres categorías diferentes.
+- proveedor: Tres proveedores asociados a los productos.
+- cliente: Tres clientes con diferentes correos electrónicos y números de teléfono.
+- empleado: Tres empleados con distintos puestos en el café.
+- orden: Tres órdenes realizadas por tres clientes, cada una asociada con un producto y un empleado.
+- detalle_orden: Tres detalles de orden con las cantidades de los productos comprados.
+- pagos: Tres pagos asociados a las órdenes.
