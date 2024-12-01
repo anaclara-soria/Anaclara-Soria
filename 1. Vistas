@@ -1,1 +1,12 @@
+USE TINA_CAFE;
+-- Ventas totales por periodo
 
+CREATE VIEW tina_cafe.vw_ventas_por_periodo AS
+SELECT
+    SUM(p.precio * do.cantidades) AS ventas_totales,
+    DATE(o.fecha) AS fecha
+FROM orden o
+JOIN detalle_orden do ON o.id_orden = do.id_orden
+JOIN producto p ON do.id_producto = p.id_producto
+GROUP BY fecha
+ORDER BY fecha DESC;
