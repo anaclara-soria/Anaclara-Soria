@@ -26,3 +26,33 @@ ON do.id_producto = p.id_producto
 GROUP BY producto
 ORDER BY ventas_totales DESC;
 
+
+-- Ventas por categoria
+
+CREATE VIEW tina_cafe.vw_ventas_por_categoria AS
+SELECT 
+    cp.nombre_categoria AS categoria,
+    SUM(do.cantidades) AS unidades_vendidas,
+    SUM(p.precio * do.cantidades) AS ventas_totales
+FROM detalle_orden as do
+JOIN producto as p 
+ON do.id_producto = p.id_producto
+JOIN categoria_producto as cp 
+ON p.id_categoria_producto = cp.id_categoria_producto
+GROUP BY categoria
+ORDER BY ventas_totales DESC;
+
+-- Ventas por empleado
+
+CREATE VIEW tina_cafe.vw_ventas_por_empleado AS
+SELECT 
+    e.nombre AS empleado,
+    SUM(p.precio * do.cantidades) AS ventas_totales
+FROM producto as p
+JOIN detalle_orden as do 
+ON p.id_producto = do.id_producto
+JOIN empleado as e 
+ON do.id_empleado = e.id_empleado
+GROUP BY empleado
+ORDER BY ventas_totales DESC;
+
