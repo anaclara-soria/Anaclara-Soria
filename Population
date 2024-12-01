@@ -1,1 +1,53 @@
+INSERT INTO categoria_producto (nombre_categoria, descripcion)
+VALUES 
+('Bebidas', 'Bebidas como cafés, jugos y té.'),
+('Comidas', 'Alimentos como cookies, buffins, barritas'),
+('Snacks', 'Snacks como papas fritas y frutos secos');
+
+INSERT INTO producto (nombre, precio, id_categoria_producto)
+VALUES
+('Cafe', 5000, 1),  -- Producto de la categoría "Bebidas"
+('Te', 3000, 1),    -- Producto de la categoría "Bebidas"
+('Limonada', 3000, 1), -- Producto de la categoría "Bebidas"
+('Muffin', 5000, 2), -- Producto de la categoría "Comidas"
+('Cookies', 3000, 2),    -- Producto de la categoría "Comidas"
+('Barritas', 3000, 2),    -- Producto de la categoría "Comidas"
+('Papas Fritas', 4000, 3),  -- Producto de la categoría "Snacks"
+('Frutos secos', 4000, 3);  -- Producto de la categoría "Snacks"
+
+INSERT INTO proveedor (id_producto, nombre, telefono, direccion, email)
+VALUES
+(1, 'Proveedor bebidas', '123456789', 'Calle 123', 'bebidas@gmail.com'),
+(2, 'Proveedor comidas', '987654321', 'Calle 456', 'comidas@gmail.com'),
+(3, 'Proveedor snacks', '555555555', 'Calle 789', 'snacks@gmail.com');
+
+INSERT INTO cliente (nombre, email, telefono)
+VALUES 
+('Lucia Catro', 'castrolucia@gmail.com', '3001234567'),
+('Manuela Baxovanos', 'manuela.bax@gmail.com', '3002345678'),
+('Sebastian Negri', 'snegri@gmail.com', '3003456789');
+
+INSERT INTO empleado (nombre, direccion, email, telefono, puesto)
+VALUES 
+('Tomas Bareto', 'Avenida 5', 'tomas.eduardo@tinacafe.com', '3004567890', 'Cajero'),
+('Pablo Hernandez', 'Avenida 6', 'p.hernandez@tinacafe.com', '3005678901', 'Chef'),
+('Santiago Degreef', 'Avenida 7', 'santiago.degreef@tinacafe.com', '3006789012', 'Mozo');
+
+INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
+VALUES 
+(1, 1, 3, '2024-11-01'),  -- Cliente 1, Producto Cafe, Empleado "Santiago Degreef", Fecha 1 de noviembre
+(2, 2, 3, '2024-11-02'),  -- Cliente 2, Producto Muffin, Empleado "Santiago Degreef", Fecha 2 de noviembre
+(3, 3, 3, '2024-11-03');  -- Cliente 3, Producto "Papas fritas", Empleado "Santiago Degreef", Fecha 3 de noviembre
+
+INSERT INTO detalle_orden (id_orden, id_producto, id_empleado, cantidades)
+VALUES 
+(1, 1, 3, 1),  -- Orden 1, Producto "Café", Empleado "Santiago Degreef", Cantidad 1
+(2, 2, 3, 2),  -- Orden 2, Producto "Muffin", Empleado "Santiago Degreef", Cantidad 2
+(3, 3, 3, 3);  -- Orden 3, Producto "Papas fritas", Empleado "Santiago Degreef", Cantidad 3
+
+INSERT INTO pagos (id_detalle_orden, fecha)
+VALUES 
+(1, '2024-11-01'),  -- Pago de la Orden 1
+(2, '2024-11-02'),  -- Pago de la Orden 2
+(3, '2024-11-03');  -- Pago de la Orden 3
 
