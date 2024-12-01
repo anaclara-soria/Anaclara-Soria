@@ -1,3 +1,5 @@
+USE TINA_CAFE;
+
 INSERT INTO categoria_producto (nombre_categoria, descripcion)
 VALUES 
 ('Bebidas', 'Bebidas como cafés, jugos y té.'),
