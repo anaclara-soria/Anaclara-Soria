@@ -56,3 +56,7 @@ ON do.id_empleado = e.id_empleado
 GROUP BY empleado
 ORDER BY ventas_totales DESC;
 
+
+
+
+
