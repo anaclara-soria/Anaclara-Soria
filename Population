@@ -1,9 +1,10 @@
+DROP DATABASE IF EXISTS TINA_CAFE;
 USE TINA_CAFE;
 
 INSERT INTO categoria_producto (nombre_categoria, descripcion)
 VALUES 
 ('Bebidas', 'Bebidas como cafés, jugos y té.'),
-('Comidas', 'Alimentos como cookies, buffins, barritas'),
+('Comidas', 'Alimentos como cookies, muffins, barritas'),
 ('Snacks', 'Snacks como papas fritas y frutos secos');
 
 INSERT INTO producto (nombre, precio, id_categoria_producto)
@@ -13,7 +14,7 @@ VALUES
 ('Limonada', 3000, 1), -- Producto de la categoría "Bebidas"
 ('Muffin', 5000, 2), -- Producto de la categoría "Comidas"
 ('Cookies', 3000, 2),    -- Producto de la categoría "Comidas"
-('Barritas', 3000, 2),    -- Producto de la categoría "Comidas"
+('Scon', 3000, 2),    -- Producto de la categoría "Comidas"
 ('Papas Fritas', 4000, 3),  -- Producto de la categoría "Snacks"
 ('Frutos secos', 4000, 3);  -- Producto de la categoría "Snacks"
 
@@ -31,25 +32,42 @@ VALUES
 
 INSERT INTO empleado (nombre, direccion, email, telefono, puesto)
 VALUES 
-('Tomas Bareto', 'Avenida 5', 'tomas.eduardo@tinacafe.com', '3004567890', 'Cajero'),
-('Pablo Hernandez', 'Avenida 6', 'p.hernandez@tinacafe.com', '3005678901', 'Chef'),
-('Santiago Degreef', 'Avenida 7', 'santiago.degreef@tinacafe.com', '3006789012', 'Mozo');
+('Tomas Bareto', 'Avenida 5', 'tomas.eduardo@tinacafe.com', '3004567890', 'Mozo'),
+('Pablo Hernandez', 'Avenida 6', 'p.hernandez@tinacafe.com', '3005678901', 'Mozo'),
+('Santiago Degreef', 'Avenida 7', 'santiago.degreef@tinacafe.com', '3006789012', 'Mozo'),
+('Virginia Mohr', 'Avenida 10', 'v.mohr@tinacafe.com', '3006789012', 'Cajera'),
+('Paulina Flores', 'Avenida 11', 'pau.flores@tinacafe.com', '3006789012', 'Chef');
+
 
 INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
 VALUES 
-(1, 1, 3, '2024-11-01'),  -- Cliente 1, Producto Cafe, Empleado "Santiago Degreef", Fecha 1 de noviembre
-(2, 2, 3, '2024-11-02'),  -- Cliente 2, Producto Muffin, Empleado "Santiago Degreef", Fecha 2 de noviembre
-(3, 3, 3, '2024-11-03');  -- Cliente 3, Producto "Papas fritas", Empleado "Santiago Degreef", Fecha 3 de noviembre
+(1, 1, 1, '2024-11-01'),  -- Cliente Lucia, Producto Cafe, Empleado "Tomas Bareto", Fecha 1 de noviembre
+(1, 4, 1, '2024-11-01'),  -- Cliente Lucia, Producto Muffin, Empleado "Tomas Bareto", Fecha 1 de noviembre
+(2, 2, 2, '2024-11-02'),  -- Cliente Manuela, Producto Te, Empleado "Pablo Hernandez", Fecha 2 de noviembre
+(2, 5, 2, '2024-11-02'),  -- Cliente Manuela, Producto Cookie, Empleado "Pablo Hernandez", Fecha 2 de noviembre
+(3, 3, 3, '2024-11-03'),  -- Cliente Sebastian, Producto Limonada, Empleado "Santiago Degreef", Fecha 3 de noviembre
+(3, 7, 3, '2024-11-03'),  -- Cliente Sebastian, Producto Papas fritas, Empleado "Santiago Degreef", Fecha 3 de noviembre
+(3, 1, 1, '2024-12-04'),  -- Cliente Sebastian, Producto Cafe, Empleado "Tomas Bareto", Fecha 4 de Diciembre
+(3, 6, 1, '2024-12-04');  -- Cliente Sebastian, Producto Scon, Empleado "Tomas Bareto", Fecha 4 de Diciembre
 
 INSERT INTO detalle_orden (id_orden, id_producto, id_empleado, cantidades)
 VALUES 
-(1, 1, 3, 1),  -- Orden 1, Producto "Café", Empleado "Santiago Degreef", Cantidad 1
-(2, 2, 3, 2),  -- Orden 2, Producto "Muffin", Empleado "Santiago Degreef", Cantidad 2
-(3, 3, 3, 3);  -- Orden 3, Producto "Papas fritas", Empleado "Santiago Degreef", Cantidad 3
+(1, 1, 1, 1),  -- Orden 1, Producto "Café", Empleado "Tomas Bareto", Cantidad 1
+(1, 4, 1, 1),  -- Orden 1, Producto "Café", Empleado "Tomas Bareto", Cantidad 1
+
+(2, 2, 2, 1),  -- Orden 2, Producto "Te", Empleado "Pablo Hernandez", Cantidad 1
+(2, 4, 2, 2),  -- Orden 2, Producto "Cookie", Empleado "Pablo Hernandez", Cantidad 2
+
+(3, 3, 3, 1),  -- Orden 3, Producto "Limonada", Empleado "Santiago Degreef", Cantidad 1
+(3, 7, 3, 1),  -- Orden 3, Producto "Papas fritas", Empleado "Santiago Degreef", Cantidad 1
+
+(4, 3, 1, 1),  -- Orden 3, Producto "Cafe", Empleado "Tomas Bareto", Cantidad 1
+(4, 6, 1, 2);  -- Orden 3, Producto "Scon", Empleado "Tomas Bareto", Cantidad 2
 
 INSERT INTO pagos (id_detalle_orden, fecha)
 VALUES 
 (1, '2024-11-01'),  -- Pago de la Orden 1
 (2, '2024-11-02'),  -- Pago de la Orden 2
-(3, '2024-11-03');  -- Pago de la Orden 3
+(3, '2024-11-03'),  -- Pago de la Orden 3
+(4, '2024-12-04');  -- Pago de la Orden 4
 
