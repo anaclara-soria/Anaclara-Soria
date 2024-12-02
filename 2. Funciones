@@ -1,1 +1,20 @@
+USE TINA_CAFE;
 
+DELIMITER //
+DROP FUNCTION IF EXISTS tina_cafe.fx_mayor_edad //
+
+CREATE FUNCTION tina_cafe.fx_mayor_edad( dob DATE )
+	RETURNS BOOLEAN
+	READS SQL DATA
+BEGIN
+	RETURN (DATEDIFF( current_date (), dob ) / 365 ) > 18;
+END //
+
+DELIMITER ;
+
+
+SELECT 
+    v.*,
+    fx_mayor_edad(v.fecha_nacimiento) AS es_mayor_edad
+FROM 
+    donaton.voluntario    AS v
