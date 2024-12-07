@@ -1,5 +1,14 @@
 --FUNCION QUE DECLARE CANTIDAD DE PEDIDOS POR EMPLEADO (SIEMPRE Y CUANDO EXISTA ESE EMPLEADO)
 
+Lo primero que debo hacer es unir las tablas 'orden' y 'empleado' para crear el cuerpo de la funcion.
+Dado que ambas tablas tienen diferente cantidad de columnas, adicione la columna 'email' dentro de la tabla 'orden' con el objetivo de igualarlas.
+
+
+ALTER TABLE orden
+ADD COLUMN email VARCHAR(200);
+
+Habiendo hecho esta modificacion, avance con la creacion de la funcion de la siguiente manera:
+
 use tina_cafe;
 
 use tina_cafe;
@@ -27,42 +36,39 @@ END //
 Delimiter ;
 
 
-Cuando intente probar la funcion, worbench me arrojo un error de tipo '1222' por no coincidir la cantidad de columnas de la tabla 'orden' y 'empleado'.
-Para solucionarlo inserte la columna 'email' en la tabla 'orden' (tabla con menor cantidad de columnas) con el objetivo de igualarlas.
-
-
-ALTER TABLE orden
-ADD COLUMN email VARCHAR(200);
-
-INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha, email)
-VALUES 
-(1, 1, 1, '2024-11-01', 'tomas.eduardo@tinacafe.com'),  -- Cliente Lucia, Producto Cafe, Empleado "Tomas Bareto", Fecha 1 de noviembre
-(1, 4, 1, '2024-11-01','tomas.eduardo@tinacafe.com'),  -- Cliente Lucia, Producto Muffin, Empleado "Tomas Bareto", Fecha 1 de noviembre
-(2, 2, 2, '2024-11-02','p.hernandez@tinacafe.com'),  -- Cliente Manuela, Producto Te, Empleado "Pablo Hernandez", Fecha 2 de noviembre
-(2, 5, 2, '2024-11-02','p.hernandez@tinacafe.com'),  -- Cliente Manuela, Producto Cookie, Empleado "Pablo Hernandez", Fecha 2 de noviembre
-(3, 3, 3, '2024-11-03','santiago.degreef@tinacafe.com'),  -- Cliente Sebastian, Producto Limonada, Empleado "Santiago Degreef", Fecha 3 de noviembre
-(3, 7, 3, '2024-11-03','santiago.degreef@tinacafe.com'),  -- Cliente Sebastian, Producto Papas fritas, Empleado "Santiago Degreef", Fecha 3 de noviembre
-(3, 1, 1, '2024-12-04','tomas.eduardo@tinacafe.com'),  -- Cliente Sebastian, Producto Cafe, Empleado "Tomas Bareto", Fecha 4 de Diciembre
-(3, 6, 1, '2024-12-04','tomas.eduardo@tinacafe.com');  -- Cliente Sebastian, Producto Scon, Empleado "Tomas Bareto", Fecha 4 de Diciembre
-
-
-
-
-Aun asi me sigue apereciendo el error de tipo 1222.
-
-
+PROBAR FUNCION:  error de tipo 1222.
 
 
 -- FUNCION QUE PROPORCIONE CUAL ES EL PRODUCTO MAS VENDIDO
+Lo primero que debo hacer es unir las tablas 'producto' y 'detalle orden' para crear el cuerpo de la funcion.
+Dado que ambas tablas tienen diferente cantidad de columnas, adicione la columna 'Detalle' dentro de la tabla 'producto'con el objetivo de igualarlas.
 
-    SELECT p.nombre INTO producto_nombre
-    FROM producto p
-    JOIN detalle_orden do ON p.id_producto = do.id_producto
-    GROUP BY p.id_producto
-    ORDER BY SUM(do.cantidades) DESC
-    LIMIT 1;
-    
-   ALTER TABLE PRODUCTO
+ ALTER TABLE PRODUCTO
 ADD COLUMN DETALLE VARCHAR(200);
 
-select * from producto;
+Habiendo hecho esta modificacion, avance con la creacion de la funcion de la siguiente manera:
+
+USE tina_cafe;
+DROP FUNCTION IF EXISTS tina_cafe.fx_producto_mas_vendido;
+DELIMITER //
+CREATE FUNCTION tina_cafe.fx_producto_mas_vendido (_producto VARCHAR (200)) -- parametros que provienen de las columnas de una tabla. SE PONE SU TIPO DE DATO
+RETURNS VARCHAR(200) -- tipo de dato que me retorna la funcion
+READS SQL DATA
+
+BEGIN
+DECLARE valor_retorno VARCHAR(200);
+
+SELECT 
+p.nombre INTO valor_retorno
+FROM producto as p
+INNER JOIN detalle_orden AS do 
+ON p.id_producto = do.id_producto
+GROUP BY p.id_producto
+ORDER BY SUM(do.cantidades) DESC
+LIMIT 2;
+    
+RETURN valor_retorno;
+END //
+Delimiter ;
+
+PROBAR FUNCION:
