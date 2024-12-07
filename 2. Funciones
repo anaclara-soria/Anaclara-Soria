@@ -49,3 +49,20 @@ VALUES
 
 
 Aun asi me sigue apereciendo el error de tipo 1222.
+
+
+
+
+-- FUNCION QUE PROPORCIONE CUAL ES EL PRODUCTO MAS VENDIDO
+
+    SELECT p.nombre INTO producto_nombre
+    FROM producto p
+    JOIN detalle_orden do ON p.id_producto = do.id_producto
+    GROUP BY p.id_producto
+    ORDER BY SUM(do.cantidades) DESC
+    LIMIT 1;
+    
+   ALTER TABLE PRODUCTO
+ADD COLUMN DETALLE VARCHAR(200);
+
+select * from producto;
