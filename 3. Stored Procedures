@@ -1,33 +1,18 @@
---Registrar un nuevo cliente
+--Registrar un nuevo proveedor
 DELIMITER //
-CREATE PROCEDURE RegistrarCliente (
-    IN p_nombre VARCHAR(100),
-    IN p_apellido VARCHAR(100),
-    IN p_email VARCHAR(100),
-    IN p_direccion VARCHAR(255),
-    IN p_telefono VARCHAR(15)
-)
-BEGIN
-    INSERT INTO Cliente (nombre, apellido, email, direccion, telefono)
-    VALUES (p_nombre, p_apellido, p_email, p_direccion, p_telefono);
-END //
-DELIMITER ;
-
-----
-
--- Registrar un nuevo proveedor
-
-DELIMITER //
-
 CREATE PROCEDURE Registrar_proveedor(
+    IN p_id_producto INT,
     IN p_nombre VARCHAR(200),
     IN p_telefono VARCHAR(200),
     IN p_direccion VARCHAR(200),
-    IN p_email VARCHAR(200),
-    IN p_id_producto INT
+    IN p_email VARCHAR(200)
 )
 BEGIN
-    INSERT INTO proveedor (nombre, telefono, direccion, email, id_producto)
-    VALUES (p_nombre, p_telefono, p_direccion, p_email, p_id_producto);
+    INSERT INTO proveedor (id_producto, nombre, telefono, direccion, email)
+    VALUES (4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+    
 END //
 DELIMITER ;
+
+
+ -- Registrar una nueva orden de un cliente
