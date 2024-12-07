@@ -27,7 +27,21 @@ END //
 Delimiter ;
 
 
+Cuando intente probar la funcion, worbench me arrojo un error de tipo '1222' por no coincidir la cantidad de columnas de la tabla 'orden' y 'empleado'.
+Para solucionarlo inserte la columna 'email' en la tabla 'orden' (tabla con menor cantidad de columnas) con el objetivo de igualarlas.
+
+
+INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha, email)
+VALUES 
+(1, 1, 1, '2024-11-01', 'tomas.eduardo@tinacafe.com'),  -- Cliente Lucia, Producto Cafe, Empleado "Tomas Bareto", Fecha 1 de noviembre
+(1, 4, 1, '2024-11-01','tomas.eduardo@tinacafe.com'),  -- Cliente Lucia, Producto Muffin, Empleado "Tomas Bareto", Fecha 1 de noviembre
+(2, 2, 2, '2024-11-02','p.hernandez@tinacafe.com'),  -- Cliente Manuela, Producto Te, Empleado "Pablo Hernandez", Fecha 2 de noviembre
+(2, 5, 2, '2024-11-02','p.hernandez@tinacafe.com'),  -- Cliente Manuela, Producto Cookie, Empleado "Pablo Hernandez", Fecha 2 de noviembre
+(3, 3, 3, '2024-11-03','santiago.degreef@tinacafe.com'),  -- Cliente Sebastian, Producto Limonada, Empleado "Santiago Degreef", Fecha 3 de noviembre
+(3, 7, 3, '2024-11-03','santiago.degreef@tinacafe.com'),  -- Cliente Sebastian, Producto Papas fritas, Empleado "Santiago Degreef", Fecha 3 de noviembre
+(3, 1, 1, '2024-12-04','tomas.eduardo@tinacafe.com'),  -- Cliente Sebastian, Producto Cafe, Empleado "Tomas Bareto", Fecha 4 de Diciembre
+(3, 6, 1, '2024-12-04','tomas.eduardo@tinacafe.com');  -- Cliente Sebastian, Producto Scon, Empleado "Tomas Bareto", Fecha 4 de Diciembre
 
 
 
-
+Aun asi me sigue apereciendo el error de tipo 1222.
