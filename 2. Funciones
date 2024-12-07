@@ -31,6 +31,9 @@ Cuando intente probar la funcion, worbench me arrojo un error de tipo '1222' por
 Para solucionarlo inserte la columna 'email' en la tabla 'orden' (tabla con menor cantidad de columnas) con el objetivo de igualarlas.
 
 
+ALTER TABLE orden
+ADD COLUMN email VARCHAR(200);
+
 INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha, email)
 VALUES 
 (1, 1, 1, '2024-11-01', 'tomas.eduardo@tinacafe.com'),  -- Cliente Lucia, Producto Cafe, Empleado "Tomas Bareto", Fecha 1 de noviembre
@@ -41,6 +44,7 @@ VALUES
 (3, 7, 3, '2024-11-03','santiago.degreef@tinacafe.com'),  -- Cliente Sebastian, Producto Papas fritas, Empleado "Santiago Degreef", Fecha 3 de noviembre
 (3, 1, 1, '2024-12-04','tomas.eduardo@tinacafe.com'),  -- Cliente Sebastian, Producto Cafe, Empleado "Tomas Bareto", Fecha 4 de Diciembre
 (3, 6, 1, '2024-12-04','tomas.eduardo@tinacafe.com');  -- Cliente Sebastian, Producto Scon, Empleado "Tomas Bareto", Fecha 4 de Diciembre
+
 
 
 
