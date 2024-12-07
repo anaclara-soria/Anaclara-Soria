@@ -1,4 +1,13 @@
 --Registrar un nuevo proveedor
+Propósito: Permite insertar nuevos proveedores en la base de datos, simplificando el proceso de registro y asegurando la insercion correcta de datos.
+
+Objetivo: Facilitar la inserción de nuevos registros en la tabla proveedor.
+
+Tablas Involucradas:
+
+Proveedor: Recibe los datos proporcionados como parámetros en el procedimiento.
+
+
 DELIMITER //
 CREATE PROCEDURE Registrar_proveedor(
     IN p_id_producto INT,
@@ -15,4 +24,19 @@ END //
 DELIMITER ;
 
 
+
  -- Registrar una nueva orden de un cliente
+
+DELIMITER //
+CREATE PROCEDURE registrar_orden(
+    IN p_id_cliente INT,
+    IN p_id_empleado INT,
+    IN p_id_producto INT,
+    IN p_fecha DATE
+)    
+BEGIN
+    INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
+    VALUES (2, 1, 2, '2024-12-20');
+    
+END //
+DELIMITER ;
