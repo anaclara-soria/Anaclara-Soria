@@ -1,22 +1,33 @@
---GENERAR UNA FUNCION QUE PERMITA 
+--FUNCION QUE DECLARE CANTIDAD DE PEDIDOS POR EMPLEADO (SIEMPRE Y CUANDO EXISTA ESE EMPLEADO)
 
-USE TINA_CAFE;
+use tina_cafe;
 
+use tina_cafe;
+set @nombre= '%Tomas%';
+
+DROP FUNCTION IF EXISTS tina_cafe.fx_total_pedidos;
 DELIMITER //
-DROP FUNCTION IF EXISTS tina_cafe.fx_mayor_edad //
+CREATE FUNCTION tina_cafe.fx_total_pedidos (_empleado VARCHAR (200)) -- parametros proveniente de la tabla empleado.
+RETURNS INT -- tipo de dato que me retorna la funcion
+READS SQL DATA
 
-CREATE FUNCTION tina_cafe.fx_mayor_edad( dob DATE )
-	RETURNS BOOLEAN
-	READS SQL DATA
 BEGIN
-	RETURN (DATEDIFF( current_date (), dob ) / 365 ) > 18;
+DECLARE resultado INT default 0;
+select 
+e.nombre,
+count(o.id_orden) as total_pedidos into resultado
+from orden as o
+left join empleado as e
+on o.id_empleado = e.id_empleado
+where e.nombre like _empleado
+group by e.id_empleado;
+
+RETURN resultado;
 END //
+Delimiter ;
 
-DELIMITER ;
 
 
-SELECT 
-    v.*,
-    fx_mayor_edad(v.fecha_nacimiento) AS es_mayor_edad
-FROM 
-    donaton.voluntario    AS v
+
+
+
