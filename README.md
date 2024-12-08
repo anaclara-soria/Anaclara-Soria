@@ -189,7 +189,7 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 
  ## Vistas aplicadas y Descripciones
 
-- *`Vista_Ventas_por_periodo`*: Sumatoria de los precios de los productos vendidos.
+*`Vista_Ventas_por_periodo`*: Sumatoria de los precios de los productos vendidos.
    Objetivo: XXX
 
   **Tablas que componen la vista:** 
@@ -197,14 +197,14 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Producto*: Proporciona el precio de cada producto.
 
-- *`Vista_Ventas_por_producto`*: Total de unidades vendidas y la suma de ingresos por cada producto con el objetivo de visualizar que productos son mas populares.
+*`Vista_Ventas_por_producto`*: Total de unidades vendidas y la suma de ingresos por cada producto con el objetivo de visualizar que productos son mas populares.
 
  **Tablas que componen la vista:** 
 
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Producto*: Proporciona el precio de cada producto.
   
-- *`Vista_Ventas_por_categoria`*: Total de ventas y unidades por cada categoría de producto (e.g., bebidas, comidas, snacks).
+*`Vista_Ventas_por_categoria`*: Total de ventas y unidades por cada categoría de producto (e.g., bebidas, comidas, snacks).
 
 **Tablas que componen la vista:** 
 
@@ -212,7 +212,7 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 - *Producto*: Proporciona el precio de cada producto.
 - *Categoria de producto*: Proporciona el nombre de cada categoria de producto.
   
-- *`Vista_Ventas_por_empleado`*: Analizar qué empleados están generando más ingresos de acuerdo a las ordenes colocadas
+*`Vista_Ventas_por_empleado`*: Analizar qué empleados están generando más ingresos de acuerdo a las ordenes colocadas
 
 **Tablas que componen la vista:** 
 
