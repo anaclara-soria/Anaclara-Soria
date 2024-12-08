@@ -1,110 +1,184 @@
-PROBLEMATICA:
-Sistema de administracion de “Tina Café”. 
-Necesidad de  un sistema para llevar a cabo un control de pedidos, inventarios, la información de cada cliente y empleado.
+# Proyecto Tina Cafe
+Cafeteria pet friendly libre de gluten dedicada a ofrecer una experiencia unica en un ambiente calido y moderno con sabores de calidad.
 
-TABLAS:
-1) Proveedor
-•	Descripción: Almacena información sobre los proveedores de productos.
-•	Campos:
-o	id_proveedor: int (PK, auto_increment) - Identificador único del proveedor.
-o	id_producto: int - Referencia al producto que proporciona.
-o	nombre: VARCHAR(200) - Nombre del proveedor.
-o	telefono: VARCHAR(200) - Número de teléfono del proveedor.
-o	direccion: VARCHAR(200) - Dirección del proveedor.
-o	email: VARCHAR(200) (UNIQUE) - Correo electrónico del proveedor.
+**Problematica:** 
+Actualmente, mi cafeteria enfrenta varios problemas en la administracion de sus ventas y pedidos. A raiz del incremento de la demanda, se ha vuelto difícil medir la rentabilidad real del negocio, realizar un correcto seguimiento de ventas, controlar el inventario y actualizar la informacion referida a clientes, ordenes y empleados. Veo necesaria la creacion de un sistema que permita almacenar y manipular toda esta informacion con el objetivo de tenemos mejor visibilidad de los resultados del negocio y tomar decisiones efectivas.
 
-2) Producto
-•	Descripción: Almacena información sobre los productos ofrecidos en el café.
-•	Campos:
-o	id_producto: int (PK, auto_increment) - Identificador único del producto.
-o	nombre: VARCHAR(200) - Nombre del producto.
-o	precio: DECIMAL(10,2) - Precio del producto.
-o	id_categoria_producto: int - Referencia a la categoría del producto.
-
-3) categoria_producto
-•	Descripción: Define las categorías a las que pertenecen los productos.
-•	Campos:
-o	id_categoria_producto: int (PK, auto_increment) - Identificador único de la categoría.
-o	nombre_categoria: VARCHAR(200) - Nombre de la categoría.
-o	descripcion: VARCHAR(200) - Descripción de la categoría.
-
-4) Cliente
-•	Descripción: Almacena información sobre los clientes.
-•	Campos:
-o	id_cliente: int (PK, auto_increment) - Identificador único del cliente.
-o	nombre: VARCHAR(200) - Nombre del cliente.
-o	email: VARCHAR(200) (UNIQUE) - Correo electrónico del cliente.
-o	telefono: VARCHAR(200) - Número de teléfono del cliente.
+## Tablas y Descripcion de Campos
 
 
-5) Empleado
-•	Descripción: Almacena información sobre los empleados del café.
-•	Campos:
-o	id_empleado: int (PK, auto_increment) - Identificador único del empleado.
-o	nombre: VARCHAR(200) - Nombre del empleado.
-o	direccion: VARCHAR(200) - Dirección del empleado.
-o	email: VARCHAR(200) (UNIQUE) - Correo electrónico del empleado.
-o	telefono: VARCHAR(100) - Número de teléfono del empleado.
-o	puesto: VARCHAR(200) - Puesto de trabajo del empleado.
+**1) Proveedor**
 
-6) Orden
-•	Descripción: Almacena información sobre las órdenes realizadas por los clientes.
-•	Campos:
-o	id_orden: int (PK, auto_increment) - Identificador único de la orden.
-o	id_cliente: int - Referencia al cliente que realiza la orden.
-o	id_producto: int - Referencia al producto ordenado.
-o	id_empleado: int - Referencia al empleado que gestiona la orden.
-o	fecha: DATE - Fecha en que se realizó la orden.
+• Descripción: Almacena información sobre los proveedores de productos. 
 
-7) Pagos
-•	Descripción: Almacena información sobre los pagos realizados por las órdenes.
-•	Campos:
-o	id_pagos: int (PK, auto_increment) - Identificador único del pago.
-o	id_detalle_orden: int - Referencia a los detalles de la orden pagada.
-o	fecha: DATE - Fecha del pago.
+• Campos: 
 
-8) Detalle_orden
-•	Descripción: Almacena los detalles de cada orden, incluyendo los productos y cantidades.
-•	Campos:
-o	id_detalle_orden: int (PK, auto_increment) - Identificador único del detalle de la orden.
-o	id_orden: int - Referencia a la orden correspondiente.
-o	id_producto: int - Referencia al producto en la orden.
-o	id_empleado: int - Referencia al empleado que gestiona el detalle.
-o	cantidades: DECIMAL(10,2) - Cantidad del producto en la orden.
+id_proveedor: int (PK, auto_increment)
 
-Relaciones:
+id_producto: int - Referencia al producto que proporciona.
 
-•	producto tiene una relación de clave foránea con categoria_producto.
-•	orden tiene relaciones de clave foránea con cliente, producto y empleado.
-•	pagos tiene una relación de clave foránea con detalle_orden.
-•	detalle_orden tiene relaciones de clave foránea con orden, producto y empleado.
-•	proveedor tiene una relación de clave foránea con producto.
+Nombre: VARCHAR(200) - Nombre del proveedor.
 
-Problemas que Resuelve:
-1.	Gestión de Inventario: Permite llevar un control de los productos por categoría y por proveedor.
+Telefono: VARCHAR(200) - Número de teléfono del proveedor.
 
-2.	Gestión de Empleados: Organiza la información del personal y su relación con las órdenes.
+Direccion: VARCHAR(200) - Dirección del proveedor.
 
-3.	Gestión de Proveedores: Organiza la información de los proveedores y su relación con cada producto.
+Email: VARCHAR(200) (UNIQUE) - Correo electrónico del proveedor.
 
-4.	Control de Pagos: Facilita el seguimiento de los pagos realizados por los clientes.
 
-5.	Análisis de Ventas: Permite obtener conclusiones de ventas por producto y categoría permitiendo analizar la tendencia de las mismas y la rentabilidad del negocio. También permite tener mayor control sobra las ventas por empleado y evaluar su rendimiento.
+**2) Producto** 
+
+• Descripción: Almacena información sobre los productos ofrecidos en el café. 
+
+• Campos:
+
+id_producto: int (PK, auto_increment)
+Identificador único del producto.
+
+Nombre: VARCHAR(200) 
+
+Nombre del producto
+
+Precio: DECIMAL(10,2). Precio del producto. 
+
+id_categoria_producto: int
+Referencia a la categoría del producto.
+
+**3) Categoria_producto** 
+
+• Descripción: Define las categorías a las que pertenecen los productos. 
+
+• Campos: 
+
+id_categoria_producto: int (PK, auto_increment) - Identificador único de la categoría.
+
+Nombre_categoria: VARCHAR(200). Nombre de la categoría. 
+
+Descripcion: VARCHAR(200). Descripción de la categoría.
+
+**4) Cliente** 
+
+• Descripción: Almacena información sobre los clientes. 
+
+• Campos: 
+
+id_cliente: int (PK, auto_increment) - Identificador único del cliente. 
+
+Nombre: VARCHAR(200). Nombre del cliente. 
+
+Email: VARCHAR(200) (UNIQUE) - Correo electrónico del cliente.
+
+Telefono: VARCHAR(200) - Número de teléfono del cliente.
+
+**5) Empleado** 
+
+• Descripción: Almacena información sobre los empleados del café. 
+
+• Campos: 
+
+id_empleado: int (PK, auto_increment) - Identificador único del empleado. 
+
+Nombre: VARCHAR(200) - Nombre del empleado. 
+
+Direccion: VARCHAR(200) - Dirección del empleado. 
+
+Email: VARCHAR(200) (UNIQUE) - Correo electrónico del empleado.
+
+Telefono: VARCHAR(100) - Número de teléfono del empleado. 
+
+Puesto: VARCHAR(200) - Puesto de trabajo del empleado.
+
+**6) Orden** 
+
+• Descripción: Almacena información sobre las órdenes realizadas por los clientes. 
+
+• Campos:
+
+id_orden: int (PK, auto_increment) - Identificador único de la orden. 
+
+id_cliente: int - Referencia al cliente que realiza la orden. 
+
+id_producto: int - Referencia al producto ordenado. 
+
+id_empleado: int - Referencia al empleado que gestiona la orden. 
+
+fecha: DATE - Fecha en que se realizó la orden.
+
+**7) Pagos** 
+
+• Descripción: Almacena información sobre los pagos realizados por las órdenes. 
+
+• Campos:
+
+id_pagos: int (PK, auto_increment) - Identificador único del pago.
+
+id_detalle_orden: int - Referencia a los detalles de la orden pagada.
+
+fecha: DATE - Fecha del pago.
+
+**8) Detalle_orden** 
+
+• Descripción: Almacena los detalles de cada orden, incluyendo los productos y cantidades. 
+
+• Campos: 
+
+id_detalle_orden: int (PK, auto_increment) - Identificador único del detalle de la orden.
+
+id_orden: int - Referencia a la orden correspondiente. 
+
+id_producto: int - Referencia al producto en la orden. 
+
+id_empleado: int - Referencia al empleado que gestiona el detalle. 
+
+cantidades: DECIMAL(10,2) - Cantidad del producto en la orden.
+
+
+## Relaciones
+
+• producto tiene una relación de clave foránea con categoria_producto. 
+
+• orden tiene relaciones de clave foránea con cliente, producto y empleado. 
+
+• pagos tiene una relación de clave foránea con detalle_orden.
+
+• detalle_orden tiene relaciones de clave foránea con orden, producto y empleado. 
+
+• proveedor tiene una relación de clave foránea con producto.
+
+**Problemas que Resuelve:**
+
+*Gestión de Inventario:* Permite llevar un control de los productos por categoría y por proveedor.
+
+*Gestión de Empleados:* Organiza la información del personal y su relación con las órdenes.
+
+*Gestión de Proveedores:* Organiza la información de los proveedores y su relación con cada producto.
+
+*Control de Pagos:* Facilita el seguimiento de los pagos realizados por los clientes.
+
+*Análisis de Ventas:* Permite obtener conclusiones de ventas por producto y categoría permitiendo analizar la tendencia de las mismas y la rentabilidad del negocio. También permite tener mayor control sobra las ventas por empleado y evaluar su rendimiento.
 
 Esta estructura permite un manejo eficiente y organizado de la información del café, facilitando la toma de decisiones y mejorando el servicio al cliente.
 
 
-DIAGRAMA ENTIDAD-RELACION (DER)
+
+## Diagrama Entidad - Relacion
 
 ![image](https://github.com/user-attachments/assets/a858b2f7-7f5f-4963-9b14-a7461206a69e)
 
-Resumen de los Datos Insertados:
+**Resumen de los Datos Insertados:**
 
-- categoria_producto: Tres categorías: Bebidas, Comidas y Snacks.
-- producto: Se han añadido cinco productos en tres categorías diferentes.
-- proveedor: Tres proveedores asociados a los productos.
-- cliente: Tres clientes con diferentes correos electrónicos y números de teléfono.
-- empleado: Tres empleados con distintos puestos en el café.
-- orden: Tres órdenes realizadas por tres clientes, cada una asociada con un producto y un empleado.
-- detalle_orden: Tres detalles de orden con las cantidades de los productos comprados.
-- pagos: Tres pagos asociados a las órdenes.
+- Categoria_producto: Tres categorías: Bebidas, Comidas y Snacks.
+
+- Producto: Se han añadido cinco productos en tres categorías diferentes.
+
+- Proveedor: Tres proveedores asociados a los productos.
+
+- Cliente: Tres clientes con diferentes correos electrónicos y números de teléfono.
+
+- Empleado: Tres empleados con distintos puestos en el café.
+
+- Orden: Tres órdenes realizadas por tres clientes, cada una asociada con un producto y un empleado.
+
+- Detalle_orden: Tres detalles de orden con las cantidades de los productos comprados.
+
+- Pagos: Tres pagos asociados a las órdenes.
