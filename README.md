@@ -187,14 +187,19 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 
  # Objetos de la base de datos
 
- ## Vistas
+ ## Vistas aplicadas y Descripciones
 
-- *`Vista_Comic_Detalles`*: Listado de cómics con sus autores, editoriales y género.
-- *`Vista_Historial_Pedidos`*: Historial de pedidos, con detalles de los cómics comprados, su cantidad, precio y el estado del pedido. 
-- *`Vista_Pagos_Pedidos`*: Pagos realizados por cada pedido, con su método de pago.
-- *`Vista_Inventario_Actual`*: Inventario actual, con detalles de las recepciones y ventas de cómics.
-- *`Vista_Resenas`*: Reseñas de cómics por cliente, con las calificaciones y comentarios. 
-- *`Vista_Ofertas_Activas`*: Ofertas activas de cómics con su descuento y fechas de vigencia.
-- *`Vista_Envios`*: Información de los envíos, incluyendo el estado y el número de seguimiento. 
-- *`PedidosPendientesDeEnvio`*: Listado de pedidos pendientes de envío. 
-- *`ComicsMasVendidos`*: Cómics más vendidos. 
+- *`Vista_Ventas_por_periodo`*: Sumatoria de los precios de los productos vendidos.
+   Objetivo: XXX
+
+  **Tablas que componen la vista:** 
+- *`Orden`*: Proporciona la fecha de cada orden.
+- *`Detalle de orden`*: Proporciona las cantidades de cada id de productos por cada id de orden
+- *`Producto`*: Proporciona el precio de cada producto.
+
+ 
+- *`Vista_Ventas_por_producto`*: Total de unidades vendidas y la suma de ingresos por cada producto con el objetivo de visualizar que productos son mas populares. 
+- *`Vista_Ventas_por_categoria`*: Total de ventas y unidades por cada categoría de producto (e.g., bebidas, comidas, snacks).
+- *`Vista_Ventas_por_empleado`*: Analizar qué empleados están generando más ingresos de acuerdo a las ordenes colocadas.
+
+
