@@ -188,3 +188,13 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
  # Objetos de la base de datos
 
  ## Vistas
+
+- *`Vista_Comic_Detalles`*: Listado de cómics con sus autores, editoriales y género.
+- *`Vista_Historial_Pedidos`*: Historial de pedidos, con detalles de los cómics comprados, su cantidad, precio y el estado del pedido. 
+- *`Vista_Pagos_Pedidos`*: Pagos realizados por cada pedido, con su método de pago.
+- *`Vista_Inventario_Actual`*: Inventario actual, con detalles de las recepciones y ventas de cómics.
+- *`Vista_Resenas`*: Reseñas de cómics por cliente, con las calificaciones y comentarios. 
+- *`Vista_Ofertas_Activas`*: Ofertas activas de cómics con su descuento y fechas de vigencia.
+- *`Vista_Envios`*: Información de los envíos, incluyendo el estado y el número de seguimiento. 
+- *`PedidosPendientesDeEnvio`*: Listado de pedidos pendientes de envío. 
+- *`ComicsMasVendidos`*: Cómics más vendidos. 
