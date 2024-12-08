@@ -184,3 +184,7 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 - Detalle_orden: Tres detalles de orden con las cantidades de los productos comprados.
 
 - Pagos: Tres pagos asociados a las órdenes.
+
+ # Objetos de la base de datos
+
+ ## Vistas
