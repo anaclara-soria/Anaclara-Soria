@@ -242,4 +242,29 @@ SELECT * FROM vw_ventas_por_empleado;
 
  ## Funciones
 
- 
+- *`Pedidos_por_empleado`*: Función que declara la cantidad de pedidos tomados por empleado. 
+- *`Producto_mas_vendido`*: Función los productos mas vendidos.
+
+---
+
+## 1. Pedidos_por_empleado
+
+*`Objetivo`*: Proporcionar la cantidad de pedidos tomados por cada empleado a raiz de la informacion proporcionada en las tablas de orden y empleados con el objetivo de monitorear que la carga de trabajo se encuentre correctamente balanceada.
+
+**Tablas Involucradas**:
+
+- *`Orden`*: La tabla que almacena el id de cada orden (pedido) realizada.
+- *`Empleado`*: La tabla que almacena el nombre de cada empleado y el id de cada orden (pedido) realizada.
+
+---
+
+### Descripción de la Función:
+La función Pedidos_por_empleado toma como parámetro el id_empleado y realiza lo siguiente:
+
+#### 1.	Declara una variable resultado de tipo INT para almacenar la sumatoria de pedidos tomados por cada empleado.
+
+#### 2.	Realiza una consulta SELECT que:
+- Suma la cantidad de cómics en la tabla Inventario para el cómic correspondiente al comic_id dado.
+- Utiliza la función COALESCE para garantizar que, si no existen registros para ese cómic, se devuelva 0 en lugar de NULL.
+
+#### 3.	La función devuelve el valor de total_stock, que es el stock total disponible del cómic.
