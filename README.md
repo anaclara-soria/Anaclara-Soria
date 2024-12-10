@@ -197,12 +197,22 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Producto*: Proporciona el precio de cada producto.
 
+Ejemplo de consulta:
+```sql
+SELECT * FROM vw_ventas_por_periodo;
+```
+
 *`Vista_Ventas_por_producto`*: Total de unidades vendidas y la suma de ingresos por cada producto con el objetivo de visualizar que productos son mas populares.
 
  **Tablas que componen la vista:** 
 
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Producto*: Proporciona el precio de cada producto.
+
+Ejemplo de consulta:
+```sql
+SELECT * FROM vw_ventas_por_producto;
+```
   
 *`Vista_Ventas_por_categoria`*: Total de ventas y unidades por cada categoría de producto (e.g., bebidas, comidas, snacks).
 
@@ -211,6 +221,11 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Producto*: Proporciona el precio de cada producto.
 - *Categoria de producto*: Proporciona el nombre de cada categoria de producto.
+
+Ejemplo de consulta:
+```sql
+SELECT * FROM vw_ventas_por_categoria;
+```
   
 *`Vista_Ventas_por_empleado`*: Analizar qué empleados están generando más ingresos de acuerdo a las ordenes colocadas
 
@@ -218,7 +233,12 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Producto*: Proporciona el precio de cada producto.
-- *Empleado*: Proporciona el nombre de cada empleado. 
+- *Empleado*: Proporciona el nombre de cada empleado.
+
+Ejemplo de consulta:
+```sql
+SELECT * FROM vw_ventas_por_empleado;
+```
 
  ## Funciones
 
