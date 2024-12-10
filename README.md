@@ -396,6 +396,12 @@ END //
 DELIMITER ;
 
 ```
+#### Ejecutar procedimiento: 
+```sql
+
+CALL Registrar_proveedor(4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+
+```
 #### Resultado esperado: 
 El procedimiento inserta un nuevo registro en la tabla proveedor con los datos proporcionados.
 
@@ -403,7 +409,7 @@ El procedimiento inserta un nuevo registro en la tabla proveedor con los datos p
 #### Validación: 
 Consulta para verificar que el proveedor fue registrado correctamente:
 ```sql
-SELECT * FROM Proveedor WHERE nombre = 'packaging';
+SELECT * FROM Proveedor;
 ```
 ---
 
@@ -454,6 +460,10 @@ END //
 DELIMITER ;
 
 ```
+#### Ejecutar procedimiento: 
+```sql
+CALL registrar_orden(2, 1, 2, '2024-12-20');
+```
 #### Resultado esperado: 
 El procedimiento inserta un nuevo registro en la tabla orden con los datos proporcionados.
 
@@ -461,7 +471,7 @@ El procedimiento inserta un nuevo registro en la tabla orden con los datos propo
 #### Validación: 
 Consulta para verificar que la orden fue registrada correctamente:
 ```sql
-SELECT * FROM Orden WHERE fecha = '2024-12-20';
+SELECT * FROM Orden;
 ```
 
 ---
