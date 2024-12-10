@@ -23,6 +23,10 @@ BEGIN
 END //
 DELIMITER ;
 
+CALL Registrar_proveedor(4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+
+select * from proveedor;
+
 
 
  -- Registrar una nueva orden de un cliente
@@ -40,3 +44,6 @@ BEGIN
     
 END //
 DELIMITER ;
+
+CALL registrar_orden(2, 1, 2, '2024-12-20');
+select * orden;
