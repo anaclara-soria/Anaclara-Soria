@@ -261,10 +261,85 @@ SELECT * FROM vw_ventas_por_empleado;
 ### Descripción de la Función:
 La función Pedidos_por_empleado toma como parámetro el id_empleado y realiza lo siguiente:
 
-#### 1.	Declara una variable resultado de tipo INT para almacenar la sumatoria de pedidos tomados por cada empleado.
+#### a.	Declara una variable resultado de tipo INT para almacenar la sumatoria de pedidos tomados por cada empleado.
+#### b.	Realiza una consulta SELECT que:
+- Suma la cantidad de ordenes en la tabla Orden.
+- Selecciona el nombre proveniente de la tabla Empleado.  
+#### c.	Realiza un LEFT JOIN para:
+- Unificar la tabla orden (contiene el campo id_orden) con la tabla empleados (contiene el campo nombre) a traves del campo id_orden.
+#### d.	Realiza un GROUP BY para:
+- Ordenar los pedidos por nombre de empleado.
+#### e.	La función devuelve el resultado, que es la cantidad de ordenes por empleado.
 
-#### 2.	Realiza una consulta SELECT que:
-- Suma la cantidad de cómics en la tabla Inventario para el cómic correspondiente al comic_id dado.
-- Utiliza la función COALESCE para garantizar que, si no existen registros para ese cómic, se devuelva 0 en lugar de NULL.
+```sql
+DROP FUNCTION IF EXISTS tina_cafe.fx_total_pedidos;
+DELIMITER //
+CREATE FUNCTION tina_cafe.fx_total_pedidos (_empleado VARCHAR (200))
+RETURNS INT
+READS SQL DATA
 
-#### 3.	La función devuelve el valor de total_stock, que es el stock total disponible del cómic.
+BEGIN
+DECLARE resultado INT default 0;
+select 
+e.nombre,
+count(o.id_orden) as total_pedidos into resultado
+from orden as o
+left join empleado as e
+on o.id_empleado = e.id_empleado
+where e.nombre like _empleado
+group by e.id_empleado;
+
+RETURN resultado;
+END //
+Delimiter ;
+
+```
+
+## 2. Producto_mas_vendido
+
+*`Objetivo`*: Proporcionar el nombre del producto con mas ventas con el objetivo de tener visibilidad de la rentabilidad del negocio y poder realizar estrategias mas eficientes.
+
+**Tablas Involucradas**:
+
+- *`Producto`*: La tabla que almacena el nombre de cada producto.
+- *`Detalle_orden`*: La tabla que almacena el id de producto.
+
+---
+
+### Descripción de la Función:
+La función Producto_mas_vendido toma como parámetro el id_producto y realiza lo siguiente:
+
+#### a.	Declara una variable resultado de tipo VARCHAR para almacenar el nombre del producto.
+#### b.	Realiza una consulta SELECT que:
+- Selecciona el nombre proveniente de la tabla producto. 
+#### c.	Realiza un INNER JOIN para:
+- Unificar la tabla producto (contiene el campo nombre) con la tabla detalle_orden (contiene el cantidades) a traves del campo id_producto.
+#### d.	Realiza un GROUP BY para:
+- Ordenar los pedidos por id_producto.
+#### e.	Realiza un ORDER BY SUM (cantidades) para:
+- Ordenar los productos por cantidades vendidas.
+#### f.	La función devuelve el resultado, que son los dos productos con mayores unidades vendidas.
+
+```sql
+DROP FUNCTION IF EXISTS tina_cafe.fx_producto_mas_vendido;
+DELIMITER //
+CREATE FUNCTION tina_cafe.fx_producto_mas_vendido (_producto VARCHAR (200)) 
+RETURNS VARCHAR(200)
+READS SQL DATA
+
+BEGIN
+DECLARE valor_retorno VARCHAR(200);
+
+SELECT 
+p.nombre INTO valor_retorno
+FROM producto as p
+INNER JOIN detalle_orden AS do 
+ON p.id_producto = do.id_producto
+GROUP BY p.id_producto
+ORDER BY SUM(do.cantidades) DESC
+LIMIT 2;
+    
+RETURN valor_retorno;
+END //
+Delimiter ;
+```
