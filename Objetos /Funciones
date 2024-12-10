@@ -36,7 +36,7 @@ END //
 Delimiter ;
 
 
-PROBAR FUNCION:  error de tipo 1222.
+PROBAR FUNCION:  aunque intente insertar una columna adicional en la tabla, al intentar probar la funcion, me arroja el error de tipo 1222.
 
 
 -- FUNCION QUE PROPORCIONE CUAL ES EL PRODUCTO MAS VENDIDO
@@ -71,4 +71,5 @@ RETURN valor_retorno;
 END //
 Delimiter ;
 
-PROBAR FUNCION:
+PROBAR FUNCION:  aunque intente insertar una columna adicional en la tabla, al intentar probar la funcion, me arroja el error de tipo 1222.
+
