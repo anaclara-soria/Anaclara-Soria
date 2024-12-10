@@ -346,68 +346,122 @@ Delimiter ;
 
 # Store Procedure
 
-- *`RegistrarCliente`*: Registrar un nuevo cliente. 
-- *`RegistrarPedido`*: Registrar un nuevo pedido.
-- *`RegistrarPago`*: Registrar un pago para un pedido.
-- *`RegistrarRecepcion`*: Registrar una recepción de cómics (movimiento de inventario). 
-- *`AplicarOferta`*: Aplicar un descuento a un cómic en una oferta.
-- *`ActualizarEstadoEnvio`*: •	Actualizar estado de envío.
-- *`ObtenerDetallePedido`*: Obtener detalles del pedido con los cómics asociados.
-- *`ActualizarStock`*: Procedimiento para Actualizar el Stock al Registrar una Venta. 
-
+- *`RegistrarProveedor`*: Registrar un nuevo proveedor
+- *`RegistrarOrden`*: Registrar una nueva orden. 
 ---
 
-## 1. RegistrarCliente
-
-*`Propósito`*: Permite insertar nuevos clientes en la base de datos, simplificando el proceso de registro y asegurando que todos los datos necesarios se capturen correctamente.
-
-*`Objetivo`*: Facilitar la inserción de nuevos registros en la tabla Cliente, evitando repeticiones en el código SQL y promoviendo una gestión centralizada del registro de clientes.
+## 1. RegistrarProveedor
+*`Objetivo`*: Permite insertar nuevos proveedores en la base de datos proveedor.
 
 **Tablas Involucradas**:
 
-- *`Cliente`*: Recibe los datos proporcionados como parámetros en el procedimiento.
+- *`Proveedor`*: Recibe los datos proporcionados como parámetros en el procedimiento.
+---
+
+### Descripción del Procedimiento:
+El procedimiento almacenado RegistrarProveedor recibe los siguientes parámetros:
+- p_id_producto: Productos que ofrece el proveedor
+- p_nombre: Nombre del proveedor
+- p_telefono: Telefono del proveedor
+- p_direccion: Direccion del proveedor.
+- p_email: Email del proveedor.
+
+### Lógica Interna:
+
+#### 1. INSERT INTO Proveedor: Inserta los valores proporcionados por los parámetros en la tabla Proveedor.
+
+#### 2. Ejemplo de uso
+---
+### Registrar un proveedor
+Supongamos que deseas registrar un nuevo cliente llamado "Proveedor Packaging" con los siguientes datos:
+- id_producto: 4
+- nombre: Packaging
+- Teléfono: 554444444
+- Direccion: 'Calle 190'
+- Email: 'packaging@gmail.com
+```sql
+DELIMITER //
+CREATE PROCEDURE Registrar_proveedor(
+    IN p_id_producto INT,
+    IN p_nombre VARCHAR(200),
+    IN p_telefono VARCHAR(200),
+    IN p_direccion VARCHAR(200),
+    IN p_email VARCHAR(200)
+)
+BEGIN
+    INSERT INTO proveedor (id_producto, nombre, telefono, direccion, email)
+    VALUES (4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+    
+END //
+DELIMITER ;
+
+```
+#### Resultado esperado: 
+El procedimiento inserta un nuevo registro en la tabla proveedor con los datos proporcionados.
+
+---
+#### Validación: 
+Consulta para verificar que el proveedor fue registrado correctamente:
+```sql
+SELECT * FROM Proveedor WHERE nombre = 'packaging';
+```
+---
+
+## 2. RegistrarOrden
+
+*`Objetivo`*: Permite insertar nuevas ordenes en la base de datos orden.
+
+**Tablas Involucradas**:
+
+- *`Orden`*: Recibe los datos proporcionados como parámetros en el procedimiento.
 
 ---
 
 ### Descripción del Procedimiento:
-El procedimiento almacenado RegistrarCliente recibe los siguientes parámetros:
-- p_nombre: El nombre del cliente.
-- p_apellido: El apellido del cliente.
-- p_email: El correo electrónico del cliente.
-- p_direccion: La dirección física del cliente.
-- p_telefono: El número de teléfono del cliente.
+El procedimiento almacenado RegistrarOrder recibe los siguientes parámetros:
+- p_id_cliente: identificacion de cada cliente.
+- p_id_empleado: identificacion de cada empleado.
+- p_id_producto: identificacion de cada producto.
+- p_fecha: fecha de cada orden.
 
 ### Lógica Interna:
 
-#### 1. INSERT INTO Cliente: Inserta los valores proporcionados por los parámetros en la tabla Cliente.
+#### 1. INSERT INTO Orden: Inserta los valores proporcionados por los parámetros en la tabla Orden.
 
-#### 2. Los datos son insertados directamente, sin validación adicional en este ejemplo básico.
+#### 2. Ejemplo de uso
 
 ---
-### Ejemplo de uso:
 
-### Registrar un cliente válido
-Supongamos que deseas registrar un nuevo cliente llamado "Pedro Suárez" con los siguientes datos:
-- Email: pedro.suarez@example.com
-- Dirección: Av. del Libertador 5000, Buenos Aires
-- Teléfono: 6612345678
+### Registrar una orden de un cliente.
+Supongamos que deseas registrar un nuevo cliente con los siguientes datos:
+- id_cliente: 2
+- id_producto: 1
+- id_empleado: 2
+- Fecha: '2024-12-20'
 ```sql
-CALL RegistrarCliente(
-    'Pedro',
-    'Suárez',
-    'pedro.suarez@example.com',
-    'Av. del Libertador 5000, Buenos Aires',
-    '6612345678'
-);
+DELIMITER //
+CREATE PROCEDURE registrar_orden(
+    IN p_id_cliente INT,
+    IN p_id_empleado INT,
+    IN p_id_producto INT,
+    IN p_fecha DATE
+)    
+BEGIN
+    INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
+    VALUES (2, 1, 2, '2024-12-20');
+    
+END //
+DELIMITER ;
+
 ```
 #### Resultado esperado: 
-El procedimiento inserta un nuevo registro en la tabla Cliente con los datos proporcionados.
+El procedimiento inserta un nuevo registro en la tabla orden con los datos proporcionados.
 
 ---
 #### Validación: 
-Consulta para verificar que el cliente fue registrado correctamente:
+Consulta para verificar que la orden fue registrada correctamente:
 ```sql
-SELECT * FROM Cliente WHERE email = 'pedro.suarez@example.com';
+SELECT * FROM Orden WHERE fecha = '2024-12-20';
 ```
 
 ---
