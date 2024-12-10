@@ -220,3 +220,6 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 - *Producto*: Proporciona el precio de cada producto.
 - *Empleado*: Proporciona el nombre de cada empleado. 
 
+ ## Funciones
+
+ 
