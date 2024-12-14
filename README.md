@@ -165,7 +165,8 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 
 ## Diagrama Entidad - Relacion
 
-![image](https://github.com/user-attachments/assets/a858b2f7-7f5f-4963-9b14-a7461206a69e)
+![image](https://github.com/user-attachments/assets/53ba37b8-5897-4d72-a361-360b8f54c2ad)
+
 
 **Resumen de los Datos Insertados:**
 
