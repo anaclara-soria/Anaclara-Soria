@@ -14,21 +14,27 @@ email VARCHAR(200) UNIQUE
 
 CREATE TABLE producto(
 id_producto int not null auto_increment primary key,
+id_categoria_producto INT,
+id_proveedor INT,
 nombre VARCHAR (200),
 precio DECIMAL (10,2),
-id_categoria_producto INT
+stock INT
 );
 
 CREATE TABLE categoria_producto(
 id_categoria_producto int not null auto_increment primary key,
+id_empleado INT,
 nombre_categoria VARCHAR(200),
-descripcion VARCHAR(200)
+descripcion VARCHAR(200),
+fecha_actualizacion DATE,
+subcategoria VARCHAR (200)
 );
-
 
 CREATE TABLE cliente(
 id_cliente int not null auto_increment primary key,
-nombre VARCHAR (200),
+id_orden INT,
+nombre VARCHAR(200),
+DNI CHAR(8),
 email VARCHAR (200) UNIQUE,
 telefono VARCHAR (200)
 );
@@ -47,77 +53,114 @@ id_orden int not null auto_increment primary key,
 id_cliente INT,
 id_producto INT,
 id_empleado INT,
-fecha DATE
+fecha DATE,
+Estado ENUM('pendiente', 'en proceso', 'completada', 'cancelada', 'pagada') DEFAULT 'pendiente'
 );
+
 
 CREATE TABLE pagos(
 id_pagos int not null auto_increment primary key,
 id_detalle_orden INT,
-fecha DATE
+fecha DATE,
+Descuento DECIMAL (5,2),
+Metodo_pago ENUM('efectivo', 'tarjeta', 'transferencia', 'mercado_pago') DEFAULT 'efectivo',
+Estado ENUM('pendiente', 'completado', 'fallido', 'reembolsado') DEFAULT 'pendiente'
 );
 
 CREATE TABLE detalle_orden(
 id_detalle_orden int not null auto_increment primary key,
 id_orden INT,
 id_producto INT,
-id_empleado INT, 
-cantidades DECIMAL (10,2)
+comentarios VARCHAR(200),
+Cantidades DECIMAL (10,2),
+Metodo_entrega ENUM('delivery', 'consumo en local') DEFAULT 'consumo en local'
 );
 
--- REFERENCIAS
+CREATE TABLE inventario ( 
+id_inventario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+id_producto INT, 
+stock INT, 
+fecha_ingreso DATE, 
+fecha_vencimiento DATE,
+estado_producto ENUM('nuevo', 'promocion', 'defectuoso', 'normal') DEFAULT 'normal' 
+);
 
 
-ALTER TABLE
-    producto 
-    ADD  CONSTRAINT fk_constraint_id_categoria_producto
-    FOREIGN KEY
-    (id_categoria_producto ) REFERENCES categoria_producto (id_categoria_producto);
-    
-ALTER TABLE
-    orden 
-    ADD  CONSTRAINT fk_constraint_id_cliente
-    FOREIGN KEY
-    (id_cliente ) REFERENCES cliente (id_cliente);
-    
-ALTER TABLE
-    orden 
-    ADD  CONSTRAINT fk_constraint_id_producto	
-    FOREIGN KEY
-    (id_producto) REFERENCES producto (id_producto);
-    
-ALTER TABLE
-    orden 
-    ADD  CONSTRAINT fk_constraint_id_empleado	
-    FOREIGN KEY
-    (id_empleado) REFERENCES empleado (id_empleado);
-    
-ALTER TABLE
-	pagos
-    ADD  CONSTRAINT fk_constraint_id_detalle_orden	
-    FOREIGN KEY
-    (id_detalle_orden) REFERENCES detalle_orden (id_detalle_orden);
-    
-ALTER TABLE
-	detalle_orden
-    ADD  CONSTRAINT fk_constraint_id_orden	
-    FOREIGN KEY
-    (id_orden) REFERENCES orden (id_orden);
-    
-ALTER TABLE
-	detalle_orden
-    ADD  CONSTRAINT fk_d_constraint_id_producto	
-    FOREIGN KEY
-    (id_producto) REFERENCES producto (id_producto);	
-    
-ALTER TABLE
-	detalle_orden
-    ADD  CONSTRAINT fk_d_constraint_id_empleado	
-    FOREIGN KEY
-    (id_empleado) REFERENCES empleado (id_empleado);
-    
+CREATE TABLE envios (
+    id_envio INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_orden INT,
+    id_empleado INT,
+    direccion VARCHAR(200),
+    fecha DATE,
+    estado ENUM('pendiente', 'en tránsito', 'entregado') DEFAULT 'pendiente'
+);
+
+
+CREATE TABLE calificaciones (
+    id_calificacion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    id_orden INT,
+    comentario TEXT,
+   tipo_comentario ENUM('producto', 'servicio', 'atencion_cliente', 'otro') DEFAULT 'producto',
+    calificación INT 
+);
 ALTER TABLE
 	proveedor
     ADD  CONSTRAINT fk_p_constraint_id_producto	
     FOREIGN KEY
     (id_producto) REFERENCES producto (id_producto);
+
+
+ALTER TABLE
+    producto 
+    ADD  CONSTRAINT fk_constraint_id_categoria_producto FOREIGN KEY (id_categoria_producto ) REFERENCES categoria_producto (id_categoria_producto),
+     ADD  CONSTRAINT fk_constraint_id_proveedor FOREIGN KEY (id_proveedor) REFERENCES proveedor (id_proveedor);
+
+ALTER TABLE
+Categoria_producto
+    ADD  CONSTRAINT fk_constraint_id_empleado	
+    FOREIGN KEY
+    (id_empleado) REFERENCES empleado (id_empleado);
+
+ALTER TABLE
+    Cliente
+    ADD  CONSTRAINT fk_constraint_id_orden	
+    FOREIGN KEY
+    (id_orden) REFERENCES orden (id_orden);
+
+
+ALTER TABLE
+    orden 
+    ADD  CONSTRAINT fk_constraint_id_cliente FOREIGN KEY (id_cliente ) REFERENCES cliente (id_cliente),
+    ADD  CONSTRAINT fk_constraint_id_producto FOREIGN KEY (id_producto ) REFERENCES producto (id_producto),
+    ADD  CONSTRAINT fk_constraint_id_o_empleado FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado);
+
+    
+ALTER TABLE pagos
+    ADD CONSTRAINT fk_constraint_id_detalle_orden FOREIGN KEY (id_detalle_orden) REFERENCES detalle_orden (id_detalle_orden);
+
+    
+ALTER TABLE
+	detalle_orden
+    ADD  CONSTRAINT fk_do_id_orden FOREIGN KEY (id_orden) REFERENCES orden (id_orden),
+    ADD  CONSTRAINT fk_do_id_producto FOREIGN KEY (id_producto) REFERENCES producto (id_producto);	
+        
+
+ALTER TABLE
+Inventario
+ADD CONSTRAINT fk_inventario_producto 
+FOREIGN KEY 
+(id_producto) REFERENCES producto (id_producto);
+
+
+ALTER TABLE
+Envios
+ADD CONSTRAINT fk_envio_orden FOREIGN KEY (id_orden) REFERENCES orden (id_orden),
+ADD CONSTRAINT fk_envio_empleado FOREIGN KEY (id_empleado) REFERENCES empleado (id_empleado);
+
+
+ALTER TABLE
+Calificaciones
+ADD CONSTRAINT fk_calificacion_cliente FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente),
+ADD CONSTRAINT fk_calificacion_orden FOREIGN KEY (id_orden) REFERENCES orden (id_orden);
 
