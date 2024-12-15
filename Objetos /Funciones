@@ -4,24 +4,25 @@ use tina_cafe;
 
 DROP FUNCTION IF EXISTS tina_cafe.fx_total_pedidos;
 DELIMITER //
-CREATE FUNCTION tina_cafe.fx_total_pedidos (_empleado VARCHAR (200)) -- parametros proveniente de la tabla empleado.
-RETURNS INT -- tipo de dato que me retorna la funcion
+CREATE FUNCTION tina_cafe.fx_total_pedidos (_empleado VARCHAR (200))
+RETURNS INT
 READS SQL DATA
 
 BEGIN
 DECLARE resultado INT default 0;
 select 
-e.nombre_empleado,
+e.nombre,
 count(o.id_orden) as total_pedidos into resultado
 from orden as o
 left join empleado as e
 on o.id_empleado = e.id_empleado
-where e.nombre_empleado like _empleado
+where e.nombre like _empleado
 group by e.id_empleado;
 
 RETURN resultado;
 END //
 Delimiter ;
+
 
 
 
@@ -31,24 +32,25 @@ Delimiter ;
 USE tina_cafe;
 DROP FUNCTION IF EXISTS tina_cafe.fx_producto_mas_vendido;
 DELIMITER //
-CREATE FUNCTION tina_cafe.fx_producto_mas_vendido (_producto VARCHAR (200)) -- parametros que provienen de las columnas de una tabla. SE PONE SU TIPO DE DATO
-RETURNS VARCHAR(200) -- tipo de dato que me retorna la funcion
+CREATE FUNCTION tina_cafe.fx_producto_mas_vendido (_producto VARCHAR (200)) 
+RETURNS VARCHAR(200)
 READS SQL DATA
 
 BEGIN
 DECLARE valor_retorno VARCHAR(200);
 
 SELECT 
-p.nombre_producto INTO valor_retorno
+p.nombre INTO valor_retorno
 FROM producto as p
 INNER JOIN detalle_orden AS do 
 ON p.id_producto = do.id_producto
 GROUP BY p.id_producto
-ORDER BY SUM(do.cantidades_orden) DESC
+ORDER BY SUM(do.cantidades) DESC
 LIMIT 2;
     
 RETURN valor_retorno;
 END //
 Delimiter ;
+
 
 
