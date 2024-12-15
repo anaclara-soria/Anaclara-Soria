@@ -1,73 +1,147 @@
-DROP DATABASE IF EXISTS TINA_CAFE;
 USE TINA_CAFE;
 
-INSERT INTO categoria_producto (nombre_categoria, descripcion)
-VALUES 
-('Bebidas', 'Bebidas como cafés, jugos y té.'),
-('Comidas', 'Alimentos como cookies, muffins, barritas'),
-('Snacks', 'Snacks como papas fritas y frutos secos');
+-- Insertar en la tabla categoria_producto
+INSERT INTO categoria_producto (nombre_categoria, descripcion_categoria, fecha_actualizacion_categoria, subcategoria) VALUES
+('Cafe', 'Frio o caliente', '2024-04-01', 'Cortado, latte, flat White, saborizado'),
+('Te', 'Frio o caliente', '2024-04-01', 'Hierbas, negro, hibiscus, manzanilla'),
+('Limonada', 'Tamaño jarra de litro', '2024-04-01', 'Limon, Menta y jengibre, Pomelo, Limon, frutos rojos'),
+('Agua Saborizada', 'Botella individual', '2024-04-01', 'Detox, Pomelo, Naranja, Mango'),
+('Pasteleria', 'Variedad de tortas', '2024-11-20', 'Chocolate y nuez, cheesecake maraguya, cheesecake frutos rojos, carrot cake, ricota'),
+('Cookies', 'Variedad de galletitas caseras', '2024-11-20', 'Pistaccio y frambuesa, lemon pie, coco y dulce de leche, nuez y mantequilla de mani, red velvet'),
+('Sandwiches', 'Panificados', '2024-08-13', 'Fiambres, salmon, pollo, veggie'),
+('Frutas', 'Frutas de estacion para consumir solas o en nuestro bowl', '2024-12-01', 'Bowl con yogur, granola y frutas de estación'),
+('Ensaladas', 'Gourmet', '2024-12-10', 'Verdes, cesar, proteica'),
+('Panaderia', 'Facturas, Panes dulces y salados', '2024-06-15', 'Croassant, facturas, scons');
 
-INSERT INTO producto (nombre, precio, id_categoria_producto)
-VALUES
-('Cafe', 5000, 1),  -- Producto de la categoría "Bebidas"
-('Te', 3000, 1),    -- Producto de la categoría "Bebidas"
-('Limonada', 3000, 1), -- Producto de la categoría "Bebidas"
-('Muffin', 5000, 2), -- Producto de la categoría "Comidas"
-('Cookies', 3000, 2),    -- Producto de la categoría "Comidas"
-('Scon', 3000, 2),    -- Producto de la categoría "Comidas"
-('Papas Fritas', 4000, 3),  -- Producto de la categoría "Snacks"
-('Frutos secos', 4000, 3);  -- Producto de la categoría "Snacks"
-
-INSERT INTO proveedor (id_producto, nombre, telefono, direccion, email)
-VALUES
-(1, 'Proveedor bebidas', '123456789', 'Calle 123', 'bebidas@gmail.com'),
-(2, 'Proveedor comidas', '987654321', 'Calle 456', 'comidas@gmail.com'),
-(3, 'Proveedor snacks', '555555555', 'Calle 789', 'snacks@gmail.com');
-
-INSERT INTO cliente (nombre, email, telefono)
-VALUES 
-('Lucia Catro', 'castrolucia@gmail.com', '3001234567'),
-('Manuela Baxovanos', 'manuela.bax@gmail.com', '3002345678'),
-('Sebastian Negri', 'snegri@gmail.com', '3003456789');
-
-INSERT INTO empleado (nombre, direccion, email, telefono, puesto)
-VALUES 
-('Tomas Bareto', 'Avenida 5', 'tomas.eduardo@tinacafe.com', '3004567890', 'Mozo'),
-('Pablo Hernandez', 'Avenida 6', 'p.hernandez@tinacafe.com', '3005678901', 'Mozo'),
-('Santiago Degreef', 'Avenida 7', 'santiago.degreef@tinacafe.com', '3006789012', 'Mozo'),
-('Virginia Mohr', 'Avenida 10', 'v.mohr@tinacafe.com', '3006789012', 'Cajera'),
-('Paulina Flores', 'Avenida 11', 'pau.flores@tinacafe.com', '3006789012', 'Chef');
+-- Insertar en la tabla producto
+INSERT INTO producto (id_categoria_producto, tipo_producto, nombre_producto, precio_producto, stock_producto) VALUES
+(1, 'Bebida', 'Café ', 4500, 5000),
+(2, 'Bebida', 'Té', 3000, 6000),
+(3, 'Bebida', 'Limonada', 4000, 5500),
+(4, 'Bebida', 'Aguas Saborizadas', 3000, 4000),
+(5, 'Pasteleria', 'Tortas', 5000, 10),
+(6, 'Pasteleria', 'Cookies', 3000, 40),
+(7, 'Sandwiches', 'Baggel', 7000, 100),
+(8, 'Snack', 'Frutas', 5000, 30),
+(9, 'Comida', 'Ensaladas', 6000, 50),
+(10, 'Panificados', 'Panaderia', 3000, 40);
 
 
-INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
-VALUES 
-(1, 1, 1, '2024-11-01'),  -- Cliente Lucia, Producto Cafe, Empleado "Tomas Bareto", Fecha 1 de noviembre
-(1, 4, 1, '2024-11-01'),  -- Cliente Lucia, Producto Muffin, Empleado "Tomas Bareto", Fecha 1 de noviembre
-(2, 2, 2, '2024-11-02'),  -- Cliente Manuela, Producto Te, Empleado "Pablo Hernandez", Fecha 2 de noviembre
-(2, 5, 2, '2024-11-02'),  -- Cliente Manuela, Producto Cookie, Empleado "Pablo Hernandez", Fecha 2 de noviembre
-(3, 3, 3, '2024-11-03'),  -- Cliente Sebastian, Producto Limonada, Empleado "Santiago Degreef", Fecha 3 de noviembre
-(3, 7, 3, '2024-11-03'),  -- Cliente Sebastian, Producto Papas fritas, Empleado "Santiago Degreef", Fecha 3 de noviembre
-(3, 1, 1, '2024-12-04'),  -- Cliente Sebastian, Producto Cafe, Empleado "Tomas Bareto", Fecha 4 de Diciembre
-(3, 6, 1, '2024-12-04');  -- Cliente Sebastian, Producto Scon, Empleado "Tomas Bareto", Fecha 4 de Diciembre
+-- Insertar en la tabla proveedor
+INSERT IGNORE proveedor (id_producto, nombre_proveedor, telefono_proveedor, direccion_proveedor, email_proveedor) VALUES
+(1, 'Valdez', '3487-511245', 'Sarmiento 333, Zarate', 'V.cafe@gmail.com'),
+(2, 'Soria', '3487-375867', 'Moreno 400, Zarate', 'soria.proveedor@gmail.com'),
+(3, 'Miguelez', '3487-511266', 'Suipacha 333, Zarate', 'Miguelez.proveedor@gmail.com'),
+(4, 'Refrescos', '3487-511354', 'Sarmiento 1800, Zarate', 'refrescos.proveedor@gmail.com'),
+(5, 'Emilia’s Pastries', '3489-457789', 'Mitre 1005, Campana', 'emilia.pastries.prov@hotmail.com'),
+(6, 'Delicias', '3489-457778', 'Chiclana 190, Campana', 'delicias.prov@hotmail.com'),
+(7, 'La Sandwicheria', '555-7890', 'Arredondo 789, Tigre', 'sandwicheria.prov@gmail.com'),
+(8, 'Doña Rosa', '3487-697845', 'Pueyrredon 890, Zarate', 'd-rosa.prov@homail.com'),
+(9, 'Catrinacio', '556-9012', 'Calle 901, Escalada', 'catrinacio.prov@gmail.com'),
+(10, 'Aranjuez', '3488-652347', 'Calle 012, Lima', 'aranjuez.prov@hotmail.com');
 
-INSERT INTO detalle_orden (id_orden, id_producto, id_empleado, cantidades)
-VALUES 
-(1, 1, 1, 1),  -- Orden 1, Producto "Café", Empleado "Tomas Bareto", Cantidad 1
-(1, 4, 1, 1),  -- Orden 1, Producto "Café", Empleado "Tomas Bareto", Cantidad 1
 
-(2, 2, 2, 1),  -- Orden 2, Producto "Te", Empleado "Pablo Hernandez", Cantidad 1
-(2, 4, 2, 2),  -- Orden 2, Producto "Cookie", Empleado "Pablo Hernandez", Cantidad 2
 
-(3, 3, 3, 1),  -- Orden 3, Producto "Limonada", Empleado "Santiago Degreef", Cantidad 1
-(3, 7, 3, 1),  -- Orden 3, Producto "Papas fritas", Empleado "Santiago Degreef", Cantidad 1
 
-(4, 3, 1, 1),  -- Orden 3, Producto "Cafe", Empleado "Tomas Bareto", Cantidad 1
-(4, 6, 1, 2);  -- Orden 3, Producto "Scon", Empleado "Tomas Bareto", Cantidad 2
 
-INSERT INTO pagos (id_detalle_orden, fecha)
-VALUES 
-(1, '2024-11-01'),  -- Pago de la Orden 1
-(2, '2024-11-02'),  -- Pago de la Orden 2
-(3, '2024-11-03'),  -- Pago de la Orden 3
-(4, '2024-12-04');  -- Pago de la Orden 4
 
+-- Insertar en la tabla empleado
+INSERT INTO empleado (nombre_empleado, direccion_empleado, email_empleado, telefono_empleado, puesto_empleado) VALUES
+('Juan Pérez', 'Guemes 682, Zarate', 'juanjo.perez@hotmail.com', '3487-684112', 'Barista'),
+('Ana Gómez', 'Ituzaingo 49, Zarate', 'analia.gomez@gmail.com', '3487-554003', 'Cajera'),
+('Luis Rodríguez', 'Suipacha 400, Campana', 'luis.r.94@gmail.com', '3489-555467', 'Cocinero'),
+('Marta Díaz', 'Soler 1000, Campana', 'marta_diaz_45@hotmail.com', '3489-346785', 'Mesera'),
+('Carlos Martínez', 'Bolivar 35, Lima', 'carlos_martinez@gmail.com', '3488-684045', 'Delivery'),
+('Lucía Sánchez', 'Garibaldi 305, Lima', 'lucia.s@yahoo.com.ar', '3488-564045', 'Ayudante de cocina'),
+('José González', 'Brown 95, Zarate', 'jose_g@gmail.com', '3487-510985', 'Mesero'),
+('Raquel López', 'Lavalle 224 8, Zarate', 'raquel.lopez@hotmail.com', '3487-511020', 'Mesera'),
+('David Fernández', 'Mitre 299, Campana', 'david.f@gmail.com', '3489-257687', 'Delivery'),
+('Sofía Ruiz', 'Sarmiento 70, Zarate', 'sofiaruiz@gmail.com', '3487-250985', 'Mesera');
+
+-- Insertar en la tabla cliente
+INSERT INTO cliente (nombre_cliente, DNI_cliente, email_cliente, telefono_cliente) VALUES
+('Carlos Pérez','20345678','carlos@gmail.com','3487-684003'),
+('Laura Martínez', '22567890', 'laura@gmail.com', '3487-512345'),
+('Jose Sanchez', '23876543', 'jose@hotmail.com', '3487-514745'),
+('Ana López', '25987654', 'ana@gmail.com', '3489-567867'),
+('María García', '27123456', 'maria@hotmail.com', '3489-678930'),
+('Pedro Fernández', '28234567', 'pedro@yahoo.com.ar', '3487-789020'),
+('Luis González', '30345678', 'luis@gmail.com', '3487-890178'),
+('Marta Jiménez', '32456789', 'marta@hotmail.com', '3489-901212'),
+('Sofía Torres', '34567890', 'sofia@yahoo.com.ar', '3488-123456'),
+('David Ruiz', '38654321', 'david@hotmail.com', '3488-123445');
+
+
+-- Insertar en la tabla orden
+INSERT INTO orden (id_cliente, id_empleado, fecha_orden, Estado_orden) VALUES
+(1, 2, '2024-08-01', 'completada'),
+(2, 1, '2024-08-02', 'completada'),
+(2, 4, '2024-08-02', 'completada'),
+(4, 6, '2024-05-04', 'cancelada'),
+(5, 1, '2024-12-05', 'pagada'),
+(5, 8, '2024-12-05', 'pagada'),
+(7, 3, '2024-08-07', 'en proceso'),
+(8, 1, '2024-08-27', 'completada'),
+(8, 1, '2024-12-09', 'cancelada'),
+(10, 1, '2024-12-10', 'pagada');
+
+-- Insertar en la tabla detalle_orden
+INSERT INTO detalle_orden (id_orden, id_producto, comentarios_orden, Cantidades_orden, Metodo_entrega) VALUES
+(1, 1, 'Cortado', 2.00, 'consumo en local'),
+(2, 2, 'De hierbas', 1, 'consumo en local'),
+(3, 5, 'Sin crema', 2, 'consumo en local'),
+(4, 8, 'Bowl sin nueces', 1, 'consumo en local'),
+(5, 3, 'Sin menta', 3, 'consumo en local'),
+(6, 7, 'Con queso extra', 3, 'delivery'),
+(7, 9, 'Sin tacc', 2, 'delivery'),
+(8, 1, 'Latte', 2, 'delivery'),
+(9, 1, 'Con mucha espuma', 1, 'consumo en local'),
+(10, 1, 'Flat white', 3, 'delivery');
+
+
+-- Insertar en la tabla pagos
+INSERT INTO pagos (id_detalle_orden, fecha_pago, Descuento_pago, Metodo_pago, Estado_pago) VALUES
+(1, '2024-08-01', 0.2, 'efectivo', 'completado'),
+(2, '2024-08-02', 0, 'tarjeta', 'pendiente'),
+(3, '2024-08-02', 0.15, 'transferencia', 'fallido'),
+(4, '2024-05-04', 0, 'mercado_pago', 'reembolsado'),
+(5, '2024-12-05', 0.2, 'efectivo', 'completado'),
+(6, '2024-12-05', 0.00, 'tarjeta', 'pendiente'),
+(7, '2024-08-07', 0, 'mercado_pago', 'completado'),
+(8, '2024-08-27', 0.2, 'efectivo', 'fallido'),
+(9, '2024-12-09', 0.15, 'transferencia', 'completado'),
+(10, '2024-12-10',0, 'tarjeta', 'reembolsado');
+
+-- Insertar en la tabla inventario
+INSERT INTO inventario (id_producto, stock_producto, fecha_ingreso_producto, fecha_vencimiento_producto, estado_producto) VALUES
+(1, 5000, '2024-11-11', '2025-11-01', 'normal'),
+(2, 6000, '2024-11-15', '2025-11-02', 'normal'),
+(3, 5500, '2024-11-15', '2025-11-03', 'normal'),
+(4, 4000, '2024-12-17', '2025-11-04', 'promocion'),
+(5, 10, '2024-12-16', '2025-11-05', 'normal'),
+(6, 40, '2024-12-06', '2025-12-30', 'normal'),
+(7, 100, '2024-12-12', '2025-12-30', 'normal'),
+(8, 30, '2024-12-03', '2025-01-20', 'normal'),
+(9, 50, '2024-12-13', '2025-12-28', 'normal'),
+(10, 40, '2024-12-16', '2025-12-27', 'normal');
+
+-- Insertar en la tabla envios
+INSERT INTO envios (id_orden, id_empleado, direccion_envio, fecha_envio, estado_envio) VALUES
+(6, 5, 'Garibaldi 389, Zarate', '2024-12-05', 'entregado'),
+(7, 5, 'Calle 2, Zarate', '2024-08-07', 'pendiente'),
+(8, 5, 'Calle 2, Zarate', '2024-08-27', 'entregado'),
+(10, 9, 'Calle 3, Zarate', '2024-12-10', 'en transito');
+
+
+-- Insertar en la tabla calificaciones
+INSERT INTO calificaciones (id_cliente, id_orden, comentario_calificacion, tipo_comentario, calificación) VALUES
+(1, 1, 'Buen café', 'producto', 5),
+(2, 2, 'Excelente servicio', 'servicio', 4),
+(3, 3, 'Muy buen ambiente', 'atencion_cliente', 4),
+(4, 4, 'Tardaron mucho', 'servicio', 1),
+(5, 5, 'Muy rico', 'producto', 5),
+(6, 6, 'No me enviaron condimentos', 'servicio', 3),
+(7, 7, 'Buena combinacion precio-calidad', 'producto', 5),
+(8, 8, 'Llego todo perfecto y me aceptaron modificar el pedido a ultimo momento', 'atencion_cliente', 5),
+(9, 9, 'Tardaron mucho', 'atencion_cliente', 2),
+(10, 10, 'El café llego caliente y estaba delicioso', 'producto', 5);
