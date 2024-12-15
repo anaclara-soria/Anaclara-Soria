@@ -7,23 +7,26 @@ Tablas Involucradas:
 
 Proveedor: Recibe los datos proporcionados como parámetros en el procedimiento.
 
-
+DROP PROCEDURE if exists registrar_proveedor;
 DELIMITER //
+
 CREATE PROCEDURE Registrar_proveedor(
     IN p_id_producto INT,
-    IN p_nombre VARCHAR(200),
-    IN p_telefono VARCHAR(200),
-    IN p_direccion VARCHAR(200),
-    IN p_email VARCHAR(200)
+    IN p_nombre_proveedor VARCHAR(200),
+    IN p_telefono_proveedor VARCHAR(200),
+    IN p_direccion_proveedor VARCHAR(200),
+    IN p_email_proveedor VARCHAR(200)
 )
 BEGIN
-    INSERT INTO proveedor (id_producto, nombre, telefono, direccion, email)
-    VALUES (4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+    INSERT INTO proveedor (id_producto, nombre_proveedor, telefono_proveedor, direccion_proveedor, email_proveedor)
+    VALUES (10, 'Panaderia Lucianti', '3487-567890', 'Valentin Alsina 1317', 'lucianti@gmail.com');
     
 END //
 DELIMITER ;
 
-CALL Registrar_proveedor(4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+
+CALL Registrar_proveedor(10, 'Panaderia Lucianti', '3487-567890', 'Valentin Alsina 1317', 'lucianti@gmail.com');
+
 
 select * from proveedor;
 
