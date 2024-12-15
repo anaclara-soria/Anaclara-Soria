@@ -37,15 +37,15 @@ Email: VARCHAR(200) (UNIQUE) - Correo electrónico del proveedor.
 id_producto: int (PK, auto_increment)
 Identificador único del producto.
 
+id_categoria_producto: int
+Referencia a la categoría del producto.
+
+Tipo_producto: VARCHAR(200) 
+
 Nombre: VARCHAR(200) 
 Nombre del producto
 
 Precio: DECIMAL(10,2). Precio del producto. 
-
-id_categoria_producto: int
-Referencia a la categoría del producto.
-
-id_proveedor: int
 
 stock: int
 Cantidad de productos disponibles en ese momento.
@@ -62,8 +62,6 @@ Nombre_categoria: VARCHAR(200). Nombre de la categoría.
 
 Descripcion: VARCHAR(200). Descripción de la categoría.
 
-id_empleado: int - Hace referencia al empleado cuyas tareas se relacionan directamente a determinada categoria de producto (ejemplo, quien ejecuta las ordenes de bebidas, comida, etc).
-
 fecha_actualizacion: DATE - Fecha en que se actualizo cada categoria, incorporando o eliminando productos.
 
 Subcategoria: VARCHAR(200)
@@ -75,8 +73,6 @@ Subcategoria: VARCHAR(200)
 • Campos: 
 
 id_cliente: int (PK, auto_increment) - Identificador único del cliente. 
-
-id_orden: int (FK)
 
 Nombre: VARCHAR(200). Nombre del cliente. 
 
@@ -175,8 +171,6 @@ comentarios (TEXT). El objetivo es tomar nota de los las criticas positivas y ne
 
 tipo_comentario: el objetivo es categorizar si el comentario hace referencia al producto, al servicio, a la atencion, etc.
 
-Metodo_entrega: Delivery o consumo en el local.
-
 Calificacion: INT . Calificacion del 1 al 5 siendo 5 la mejor puntuacion.
 
 **10) Envios** 
@@ -215,14 +209,12 @@ fecha_vencimiento: DATE. Proxima fecha de vencimiento de los productos.
 
 Estado_producto: Categoriacion en nuevo, en promocion, defectuoso o normal. El objetivo es organizar es mejorar la administracion del stock.
 
-Estado: pendiente, en transito o entregado.
-
 
 ## Relaciones
 
-• producto tiene una relación de clave foránea con categoria_producto y proveedor.
+• producto tiene una relación de clave foránea con categoria_producto.
 
-• orden tiene relaciones de clave foránea con cliente, producto y empleado.
+• orden tiene relaciones de clave foránea con cliente y empleado.
 
 • pagos tiene una relación de clave foránea con detalle_orden.
 
@@ -232,11 +224,7 @@ Estado: pendiente, en transito o entregado.
 
 • calificaciones tiene una relación de clave foránea con cliente y orden.
 
-• cliente tiene una relación de clave foránea con orden.
-
 • envios tiene una relación de clave foránea con empleado y orden.
-
-• categoria_producto tiene una relación de clave foránea con empleado.
 
 • inventario tiene una relación de clave foránea con producto.
 
@@ -262,28 +250,35 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 
 **Resumen de los Datos Insertados:**
 
-- Categoria_producto: Tres categorías: Bebidas, Comidas y Snacks.
+- Categoria_producto: Diez categorías: Cafe, Te, Limonada, Aguas Saborizadas, Pasteleria, Cookies, Sandwiches, Frutas, Ensaladas y Panaderia.
 
-- Producto: Se han añadido cinco productos en tres categorías diferentes.
+- Producto: Se han añadido diez productos en diez categorías diferentes.
 
-- Proveedor: Tres proveedores asociados a los productos.
+- Proveedor: Diez proveedores asociados a los productos.
 
-- Cliente: Tres clientes con diferentes correos electrónicos y números de teléfono.
+- Cliente: Diez clientes con diferentes correos electrónicos, números de teléfono y DNI.
 
-- Empleado: Tres empleados con distintos puestos en el café.
+- Empleado: Diez empleados con distintos puestos en el café.
 
-- Orden: Tres órdenes realizadas por tres clientes, cada una asociada con un producto y un empleado.
+- Orden: Diez órdenes realizadas por diez clientes, cada una asociada con un producto y un empleado.
 
-- Detalle_orden: Tres detalles de orden con las cantidades de los productos comprados.
+- Detalle_orden: Diez detalles de orden con las cantidades de los productos comprados, el metodo de entrega y los comentarios asociados a cada orden.
 
-- Pagos: Tres pagos asociados a las órdenes.
+- Pagos: Diez pagos diferentes asociados a cada orden y suministrando el dato de la fecha de pago, el estado de la transaccion, el metodo de pago y el descuento aplicado.
 
+- Inventario: Esta tabla proporciona la informacion referida a el stock de cada producto, el estado de los productos, la fecha de ingreso y de vencimiento. 
+
+- Envios: Cuatro envios realizados en Zarate con el dato del estado de cada uno de ellos.
+
+- Calificaciones: Calificaciones por cada pedido realizado clasificando los comentarios en 3 tipos (producto, servicio o atencion al cliente).
+
+- 
  # Objetos de la base de datos
 
  ## Vistas aplicadas y Descripciones
 
 *`Vista_Ventas_por_periodo`*: Sumatoria de los precios de los productos vendidos.
-   Objetivo: XXX
+   Objetivo: identificar los periodos con mayores y menores ventas para tomar medidas al respecto.
 
   **Tablas que componen la vista:** 
 - *Orden*: Proporciona la fecha de cada orden.
@@ -324,8 +319,10 @@ SELECT * FROM vw_ventas_por_categoria;
 
 **Tablas que componen la vista:** 
 
-- *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
+
 - *Producto*: Proporciona el precio de cada producto.
+- *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
+- *Orden*: Proporciona las cantidades de cada id de productos por cada id de orden
 - *Empleado*: Proporciona el nombre de cada empleado.
 
 Ejemplo de consulta:
