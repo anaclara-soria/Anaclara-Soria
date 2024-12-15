@@ -31,19 +31,21 @@ select * from proveedor;
 
  -- Registrar una nueva orden de un cliente
 
+DROP PROCEDURE if exists registrar_orden;
 DELIMITER //
 CREATE PROCEDURE registrar_orden(
     IN p_id_cliente INT,
     IN p_id_empleado INT,
-    IN p_id_producto INT,
-    IN p_fecha DATE
-)    
+    IN p_fecha_orden DATE,
+    IN p_Estado_orden ENUM('pendiente', 'en proceso', 'completada', 'cancelada', 'pagada')
+    )    
 BEGIN
-    INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
-    VALUES (2, 1, 2, '2024-12-20');
+    INSERT INTO orden (id_cliente, id_empleado, fecha_orden, estado_orden)
+    VALUES (2, 2, '2024-12-20','Completada');
     
 END //
 DELIMITER ;
 
-CALL registrar_orden(2, 1, 2, '2024-12-20');
-select * orden;
+CALL registrar_orden(2, 2, '2024-12-20','Completada');
+
+select * from orden;
