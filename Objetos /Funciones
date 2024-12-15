@@ -1,18 +1,6 @@
 --FUNCION QUE DECLARE CANTIDAD DE PEDIDOS POR EMPLEADO (SIEMPRE Y CUANDO EXISTA ESE EMPLEADO)
 
-Lo primero que debo hacer es unir las tablas 'orden' y 'empleado' para crear el cuerpo de la funcion.
-Dado que ambas tablas tienen diferente cantidad de columnas, adicione la columna 'email' dentro de la tabla 'orden' con el objetivo de igualarlas.
-
-
-ALTER TABLE orden
-ADD COLUMN email VARCHAR(200);
-
-Habiendo hecho esta modificacion, avance con la creacion de la funcion de la siguiente manera:
-
 use tina_cafe;
-
-use tina_cafe;
-set @nombre= '%Tomas%';
 
 DROP FUNCTION IF EXISTS tina_cafe.fx_total_pedidos;
 DELIMITER //
@@ -23,12 +11,12 @@ READS SQL DATA
 BEGIN
 DECLARE resultado INT default 0;
 select 
-e.nombre,
+e.nombre_empleado,
 count(o.id_orden) as total_pedidos into resultado
 from orden as o
 left join empleado as e
 on o.id_empleado = e.id_empleado
-where e.nombre like _empleado
+where e.nombre_empleado like _empleado
 group by e.id_empleado;
 
 RETURN resultado;
@@ -36,17 +24,9 @@ END //
 Delimiter ;
 
 
-PROBAR FUNCION:  aunque intente insertar una columna adicional en la tabla, al intentar probar la funcion, me arroja el error de tipo 1222.
-
 
 -- FUNCION QUE PROPORCIONE CUAL ES EL PRODUCTO MAS VENDIDO
-Lo primero que debo hacer es unir las tablas 'producto' y 'detalle orden' para crear el cuerpo de la funcion.
-Dado que ambas tablas tienen diferente cantidad de columnas, adicione la columna 'Detalle' dentro de la tabla 'producto'con el objetivo de igualarlas.
 
- ALTER TABLE PRODUCTO
-ADD COLUMN DETALLE VARCHAR(200);
-
-Habiendo hecho esta modificacion, avance con la creacion de la funcion de la siguiente manera:
 
 USE tina_cafe;
 DROP FUNCTION IF EXISTS tina_cafe.fx_producto_mas_vendido;
@@ -59,17 +39,16 @@ BEGIN
 DECLARE valor_retorno VARCHAR(200);
 
 SELECT 
-p.nombre INTO valor_retorno
+p.nombre_producto INTO valor_retorno
 FROM producto as p
 INNER JOIN detalle_orden AS do 
 ON p.id_producto = do.id_producto
 GROUP BY p.id_producto
-ORDER BY SUM(do.cantidades) DESC
+ORDER BY SUM(do.cantidades_orden) DESC
 LIMIT 2;
     
 RETURN valor_retorno;
 END //
 Delimiter ;
 
-PROBAR FUNCION:  aunque intente insertar una columna adicional en la tabla, al intentar probar la funcion, me arroja el error de tipo 1222.
 
