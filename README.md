@@ -38,13 +38,17 @@ id_producto: int (PK, auto_increment)
 Identificador único del producto.
 
 Nombre: VARCHAR(200) 
-
 Nombre del producto
 
 Precio: DECIMAL(10,2). Precio del producto. 
 
 id_categoria_producto: int
 Referencia a la categoría del producto.
+
+id_proveedor: int
+
+stock: int
+Cantidad de productos disponibles en ese momento.
 
 **3) Categoria_producto** 
 
@@ -58,6 +62,12 @@ Nombre_categoria: VARCHAR(200). Nombre de la categoría.
 
 Descripcion: VARCHAR(200). Descripción de la categoría.
 
+id_empleado: int - Hace referencia al empleado cuyas tareas se relacionan directamente a determinada categoria de producto (ejemplo, quien ejecuta las ordenes de bebidas, comida, etc).
+
+fecha_actualizacion: DATE - Fecha en que se actualizo cada categoria, incorporando o eliminando productos.
+
+Subcategoria: VARCHAR(200)
+
 **4) Cliente** 
 
 • Descripción: Almacena información sobre los clientes. 
@@ -66,7 +76,11 @@ Descripcion: VARCHAR(200). Descripción de la categoría.
 
 id_cliente: int (PK, auto_increment) - Identificador único del cliente. 
 
+id_orden: int (FK)
+
 Nombre: VARCHAR(200). Nombre del cliente. 
+
+DNI: char(8). El objetivo de este campo es tener una nocion del publico promedio que nos consume.
 
 Email: VARCHAR(200) (UNIQUE) - Correo electrónico del cliente.
 
@@ -106,6 +120,9 @@ id_empleado: int - Referencia al empleado que gestiona la orden.
 
 fecha: DATE - Fecha en que se realizó la orden.
 
+Estado: pendiente, en proceso, completada, cancelada o pagada a traves de un ENUM.
+
+
 **7) Pagos** 
 
 • Descripción: Almacena información sobre los pagos realizados por las órdenes. 
@@ -117,6 +134,12 @@ id_pagos: int (PK, auto_increment) - Identificador único del pago.
 id_detalle_orden: int - Referencia a los detalles de la orden pagada.
 
 fecha: DATE - Fecha del pago.
+
+Descuento: decimal (5,2).
+
+Metodo de pago: distintas opciones de pago a traves de un ENUM (en efectivo, tarjeta o a traves de mercado pago).
+
+Estado de pago: pendiente, completado, fallido, reembolsado. El objetivo de este campo es visualizar rapidamente si el sistema de cobros presenta algun problema.
 
 **8) Detalle_orden** 
 
@@ -130,22 +153,93 @@ id_orden: int - Referencia a la orden correspondiente.
 
 id_producto: int - Referencia al producto en la orden. 
 
-id_empleado: int - Referencia al empleado que gestiona el detalle. 
+comentarios (VARCHAR 200). El objetivo es tomar nota de los comentarios mas recurrentes de los clientes y mejorar el servicio y las opciones de productos. Ejemplo, sin azucar, sin sal, sin tacc, con leche vegana, etc.
 
 cantidades: DECIMAL(10,2) - Cantidad del producto en la orden.
+
+Metodo_entrega: Delivery o consumo en el local.
+
+**9) Calificaciones** 
+
+• Descripción: Almacena las calificaciones tanto positivas como negativas de cada cliente en cada orden. 
+
+• Campos: 
+
+id_calificacion: int (PK, auto_increment) - Identificador único del detalle de la orden.
+
+id_cliente: int - (FK) 
+
+id_orden: int - (FK) 
+
+comentarios (TEXT). El objetivo es tomar nota de los las criticas positivas y negativas de los clientes para mejorar el servicio y satisfacer sus necesidades. 
+
+tipo_comentario: el objetivo es categorizar si el comentario hace referencia al producto, al servicio, a la atencion, etc.
+
+Metodo_entrega: Delivery o consumo en el local.
+
+Calificacion: INT . Calificacion del 1 al 5 siendo 5 la mejor puntuacion.
+
+**10) Envios** 
+
+• Descripción: Almacena informacion referida a los envios a domicilio.. 
+
+• Campos: 
+
+id_envio: int (PK, auto_increment) - Identificador único del detalle de la orden.
+
+id_orden: int - (FK) 
+
+id_empleado: int - (FK). El objetivo de este campo es identificar la correcta distribucion de envios entre los repartidores del negocio.
+
+Direccion: VARCHAR (200). El objetivo es detectar el radio de los envios mas frecuentes para evaluar cuantos repartidores se necesitan para abastecer la demanda.
+
+fecha: date.
+
+Estado: pendiente, en transito o entregado.
+
+**11) Inventario** 
+
+• Descripción: Almacena informacion referida al stock de productos por categoria con el objetivo de mantener una buena administracion y anticiparse a realizar nuevas ordenes a tiempo.
+
+• Campos: 
+
+id_inventario: int (PK, auto_increment) - Identificador único del detalle de la orden.
+
+id_producto: int - (FK) 
+
+stock: INT
+
+fecha_ingreso: DATE. Fecha en que ingreso la ultima mercaderia al local.
+
+fecha_vencimiento: DATE. Proxima fecha de vencimiento de los productos.
+
+Estado_producto: Categoriacion en nuevo, en promocion, defectuoso o normal. El objetivo es organizar es mejorar la administracion del stock.
+
+Estado: pendiente, en transito o entregado.
 
 
 ## Relaciones
 
-• producto tiene una relación de clave foránea con categoria_producto. 
+• producto tiene una relación de clave foránea con categoria_producto y proveedor.
 
-• orden tiene relaciones de clave foránea con cliente, producto y empleado. 
+• orden tiene relaciones de clave foránea con cliente, producto y empleado.
 
 • pagos tiene una relación de clave foránea con detalle_orden.
 
-• detalle_orden tiene relaciones de clave foránea con orden, producto y empleado. 
+• detalle_orden tiene relaciones de clave foránea con orden y producto. 
 
 • proveedor tiene una relación de clave foránea con producto.
+
+• calificaciones tiene una relación de clave foránea con cliente y orden.
+
+• cliente tiene una relación de clave foránea con orden.
+
+• envios tiene una relación de clave foránea con empleado y orden.
+
+• categoria_producto tiene una relación de clave foránea con empleado.
+
+• inventario tiene una relación de clave foránea con producto.
+
 
 **Problemas que Resuelve:**
 
@@ -160,7 +254,6 @@ cantidades: DECIMAL(10,2) - Cantidad del producto en la orden.
 *Análisis de Ventas:* Permite obtener conclusiones de ventas por producto y categoría permitiendo analizar la tendencia de las mismas y la rentabilidad del negocio. También permite tener mayor control sobra las ventas por empleado y evaluar su rendimiento.
 
 Esta estructura permite un manejo eficiente y organizado de la información del café, facilitando la toma de decisiones y mejorando el servicio al cliente.
-
 
 
 ## Diagrama Entidad - Relacion
