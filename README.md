@@ -463,23 +463,23 @@ El procedimiento almacenado RegistrarProveedor recibe los siguientes parámetros
 ---
 ### Registrar un proveedor
 Supongamos que deseas registrar un nuevo cliente llamado "Proveedor Packaging" con los siguientes datos:
-- id_producto: 4
-- nombre: Packaging
-- Teléfono: 554444444
-- Direccion: 'Calle 190'
-- Email: 'packaging@gmail.com
+- id_producto: 10
+- nombre: 'Panaderia Lucianti'
+- Teléfono: 3487-567890
+- Direccion: 'Valentin Alsina 1317'
+- Email: 'lucianti@gmail.com
 ```sql
 DELIMITER //
 CREATE PROCEDURE Registrar_proveedor(
     IN p_id_producto INT,
-    IN p_nombre VARCHAR(200),
-    IN p_telefono VARCHAR(200),
-    IN p_direccion VARCHAR(200),
-    IN p_email VARCHAR(200)
+    IN p_nombre_proveedor VARCHAR(200),
+    IN p_telefono_proveedor VARCHAR(200),
+    IN p_direccion_proveedor VARCHAR(200),
+    IN p_email_proveedor VARCHAR(200)
 )
 BEGIN
-    INSERT INTO proveedor (id_producto, nombre, telefono, direccion, email)
-    VALUES (4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+    INSERT INTO proveedor (id_producto, nombre_proveedor, telefono_proveedor, direccion_proveedor, email_proveedor)
+    VALUES (10, 'Panaderia Lucianti', '3487-567890', 'Valentin Alsina 1317', 'lucianti@gmail.com');
     
 END //
 DELIMITER ;
@@ -488,7 +488,7 @@ DELIMITER ;
 #### Ejecutar procedimiento: 
 ```sql
 
-CALL Registrar_proveedor(4, 'Proveedor packaging', '554444444', 'Calle 190', 'packaging@gmail.com');
+CALL Registrar_proveedor(10, 'Panaderia Lucianti', '3487-567890', 'Valentin Alsina 1317', 'lucianti@gmail.com');
 
 ```
 #### Resultado esperado: 
@@ -530,20 +530,20 @@ El procedimiento almacenado RegistrarOrder recibe los siguientes parámetros:
 ### Registrar una orden de un cliente.
 Supongamos que deseas registrar un nuevo cliente con los siguientes datos:
 - id_cliente: 2
-- id_producto: 1
 - id_empleado: 2
 - Fecha: '2024-12-20'
+- Estado_orden: 'Completada'
 ```sql
 DELIMITER //
 CREATE PROCEDURE registrar_orden(
     IN p_id_cliente INT,
     IN p_id_empleado INT,
-    IN p_id_producto INT,
-    IN p_fecha DATE
-)    
+    IN p_fecha_orden DATE,
+    IN p_Estado_orden ENUM('pendiente', 'en proceso', 'completada', 'cancelada', 'pagada')
+    )    
 BEGIN
-    INSERT INTO orden (id_cliente, id_producto, id_empleado, fecha)
-    VALUES (2, 1, 2, '2024-12-20');
+    INSERT INTO orden (id_cliente, id_empleado, fecha_orden, estado_orden)
+    VALUES (2, 2, '2024-12-20','Completada');
     
 END //
 DELIMITER ;
@@ -551,7 +551,7 @@ DELIMITER ;
 ```
 #### Ejecutar procedimiento: 
 ```sql
-CALL registrar_orden(2, 1, 2, '2024-12-20');
+CALL registrar_orden(2, 2, '2024-12-20','Completada');
 ```
 #### Resultado esperado: 
 El procedimiento inserta un nuevo registro en la tabla orden con los datos proporcionados.
