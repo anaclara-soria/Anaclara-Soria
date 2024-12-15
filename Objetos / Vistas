@@ -7,15 +7,15 @@ Luego aplico un segundo JOIN para unir las tablas 'detalle_orden' y 'producto' a
 
 CREATE VIEW tina_cafe.vw_ventas_por_periodo AS
 SELECT
-    SUM(p.precio * do.cantidades) AS ventas_totales,
-    DATE(o.fecha) AS fecha
+    SUM(p.precio_producto * do.cantidades_orden) AS ventas_totales,
+    DATE(o.fecha_orden) AS fecha
 FROM orden as o
 INNER JOIN detalle_orden as do 
 ON o.id_orden = do.id_orden
 INNER JOIN producto as p 
 ON do.id_producto = p.id_producto
-GROUP BY fecha
-ORDER BY fecha DESC;
+GROUP BY fecha_orden
+ORDER BY fecha_orden DESC;
 
 
 --Ventas totales por producto:
@@ -24,9 +24,9 @@ Comentarios: Utilizo el JOIN para unir las tablas 'detalle_orden' y 'producto' a
 
 CREATE VIEW tina_cafe.vw_ventas_por_producto AS
 SELECT 
-    p.nombre AS producto,
-    SUM(do.cantidades) AS unidades_vendidas,
-    SUM(p.precio * do.cantidades) AS ventas_totales
+    p.nombre_producto AS producto,
+    SUM(do.cantidades_orden) AS unidades_vendidas,
+    SUM(p.precio_producto * do.cantidades_orden) AS ventas_totales
 FROM detalle_orden AS do
 INNER JOIN producto AS p 
 ON do.id_producto = p.id_producto
@@ -44,8 +44,8 @@ de ordenar las ventas totales por categoria de producto.
 CREATE VIEW tina_cafe.vw_ventas_por_categoria AS
 SELECT 
     cp.nombre_categoria AS categoria,
-    SUM(do.cantidades) AS unidades_vendidas,
-    SUM(p.precio * do.cantidades) AS ventas_totales
+    SUM(do.cantidades_orden) AS unidades_vendidas,
+    SUM(p.precio_producto * do.cantidades_orden) AS ventas_totales
 FROM detalle_orden as do
 JOIN producto as p 
 ON do.id_producto = p.id_producto
@@ -57,19 +57,21 @@ ORDER BY ventas_totales DESC;
 -- Ventas por empleado
 Vista: Analizar qué empleados están generando más ingresos de acuerdo a las ordenes colocadas.
 Comentarios: Utilizo el JOIN para unir las tablas 'producto' y 'detalle_orden' a traves del campo id_producto con el objetivo de calcular las ventas totales (precio x cantidades).
-Luego aplico un segundo JOIN para unir las tablas 'detalle_orden' y 'empleado' a traves del campo id_empleado con el objetivo 
-de ordenar las ventas totales por empleado.
+Luego aplico un segundo JOIN para unir las tablas 'detalle_orden' y 'orden' a traves del campo id_orden.
+Finalmente aplico un ultimo JOIN uniendo las tablas 'orden' y 'empleado' a traves del campo id_empleado con el objetivo de ordenar las ventas totales por empleado.
 
 
 CREATE VIEW tina_cafe.vw_ventas_por_empleado AS
 SELECT 
-    e.nombre AS empleado,
-    SUM(p.precio * do.cantidades) AS ventas_totales
+    e.nombre_empleado AS empleado,
+    SUM(p.precio_producto * do.cantidades_orden) AS ventas_totales
 FROM producto as p
 JOIN detalle_orden as do 
 ON p.id_producto = do.id_producto
-JOIN empleado as e 
-ON do.id_empleado = e.id_empleado
+JOIN orden as o 
+ON do.id_orden = o.id_orden
+JOIN empleado as e
+ON o.id_empleado = e.id_empleado
 GROUP BY empleado
 ORDER BY ventas_totales DESC;
 
