@@ -319,10 +319,9 @@ SELECT * FROM vw_ventas_por_categoria;
 
 **Tablas que componen la vista:** 
 
-
-- *Producto*: Proporciona el precio de cada producto.
 - *Detalle de orden*: Proporciona las cantidades de cada id de productos por cada id de orden
-- *Orden*: Proporciona las cantidades de cada id de productos por cada id de orden
+- *Producto*: Proporciona el precio de cada producto.
+- *Orden*: Funciona como puente entre tabla producto y empleado.
 - *Empleado*: Proporciona el nombre de cada empleado.
 
 Ejemplo de consulta:
