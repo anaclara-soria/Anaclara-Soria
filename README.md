@@ -1,5 +1,15 @@
 # Proyecto Tina Cafe
 
+**Alumna:** Anaclara Soria  
+**Curso:** SQL  
+**Comisión:** 59430  
+**Docente:** Anderson Ocaña
+**Tutor:** Nicolas Maugeri  
+
+---
+
+## Introduccion
+
 Cafeteria pet friendly libre de gluten dedicada a ofrecer una experiencia unica en un ambiente calido y moderno con sabores de calidad.
 
 ## Problematica
