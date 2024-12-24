@@ -1,9 +1,13 @@
 # Proyecto Tina Cafe
 
-**Alumna:** Anaclara Soria  
-**Curso:** SQL  
-**Comisión:** 59430  
+**Alumna:** Anaclara Soria
+
+**Curso:** SQL
+
+**Comisión:** 59430
+
 **Docente:** Anderson Ocaña
+
 **Tutor:** Nicolas Maugeri  
 
 ---
