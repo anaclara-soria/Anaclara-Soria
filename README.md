@@ -20,8 +20,36 @@ Cafeteria pet friendly libre de gluten dedicada a ofrecer una experiencia unica 
 
 Actualmente, mi cafeteria enfrenta varios problemas en la administracion de sus ventas y pedidos. A raiz del incremento de la demanda, se ha vuelto difícil medir la rentabilidad real del negocio, realizar un correcto seguimiento de ventas, controlar el inventario y actualizar la informacion referida a clientes, ordenes y empleados. Veo necesaria la creacion de un sistema que permita almacenar y manipular toda esta informacion con el objetivo de tenemos mejor visibilidad de los resultados del negocio y tomar decisiones efectivas.
 
-## Tablas y Descripcion de Campos
+## Diagrama Entidad - Relacion
 
+![image](https://github.com/user-attachments/assets/47a24e56-1927-426a-8dcb-9df489397dd1)
+
+**Resumen de los Datos Insertados:**
+
+- Categoria_producto: Diez categorías: Cafe, Te, Limonada, Aguas Saborizadas, Pasteleria, Cookies, Sandwiches, Frutas, Ensaladas y Panaderia.
+
+- Producto: Se han añadido diez productos en diez categorías diferentes.
+
+- Proveedor: Diez proveedores asociados a los productos.
+
+- Cliente: Diez clientes con diferentes correos electrónicos, números de teléfono y DNI.
+
+- Empleado: Diez empleados con distintos puestos en el café.
+
+- Orden: Diez órdenes realizadas por diez clientes, cada una asociada con un producto y un empleado.
+
+- Detalle_orden: Diez detalles de orden con las cantidades de los productos comprados, el metodo de entrega y los comentarios asociados a cada orden.
+
+- Pagos: Diez pagos diferentes asociados a cada orden y suministrando el dato de la fecha de pago, el estado de la transaccion, el metodo de pago y el descuento aplicado.
+
+- Inventario: Esta tabla proporciona la informacion referida a el stock de cada producto, el estado de los productos, la fecha de ingreso y de vencimiento. 
+
+- Envios: Cuatro envios realizados en Zarate con el dato del estado de cada uno de ellos.
+
+- Calificaciones: Calificaciones por cada pedido realizado clasificando los comentarios en 3 tipos (producto, servicio o atencion al cliente).
+
+
+## Tablas y Descripcion de Campos
 
 **1) Proveedor**
 
@@ -258,35 +286,9 @@ Estado_producto: Categoriacion en nuevo, en promocion, defectuoso o normal. El o
 Esta estructura permite un manejo eficiente y organizado de la información del café, facilitando la toma de decisiones y mejorando el servicio al cliente.
 
 
-## Diagrama Entidad - Relacion
 
-![image](https://github.com/user-attachments/assets/47a24e56-1927-426a-8dcb-9df489397dd1)
 
-**Resumen de los Datos Insertados:**
 
-- Categoria_producto: Diez categorías: Cafe, Te, Limonada, Aguas Saborizadas, Pasteleria, Cookies, Sandwiches, Frutas, Ensaladas y Panaderia.
-
-- Producto: Se han añadido diez productos en diez categorías diferentes.
-
-- Proveedor: Diez proveedores asociados a los productos.
-
-- Cliente: Diez clientes con diferentes correos electrónicos, números de teléfono y DNI.
-
-- Empleado: Diez empleados con distintos puestos en el café.
-
-- Orden: Diez órdenes realizadas por diez clientes, cada una asociada con un producto y un empleado.
-
-- Detalle_orden: Diez detalles de orden con las cantidades de los productos comprados, el metodo de entrega y los comentarios asociados a cada orden.
-
-- Pagos: Diez pagos diferentes asociados a cada orden y suministrando el dato de la fecha de pago, el estado de la transaccion, el metodo de pago y el descuento aplicado.
-
-- Inventario: Esta tabla proporciona la informacion referida a el stock de cada producto, el estado de los productos, la fecha de ingreso y de vencimiento. 
-
-- Envios: Cuatro envios realizados en Zarate con el dato del estado de cada uno de ellos.
-
-- Calificaciones: Calificaciones por cada pedido realizado clasificando los comentarios en 3 tipos (producto, servicio o atencion al cliente).
-
-- 
  # Objetos de la base de datos
 
  ## Vistas aplicadas y Descripciones
