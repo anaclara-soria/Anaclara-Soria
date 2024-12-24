@@ -1,1 +1,52 @@
+1) Trigger para actualizar el stock cuando se crea una orden:
 
+Objetivo: Este trigger actualiza el stock de los productos cuando se registra un pedido, descontando la cantidad de cada producto pedido. 
+
+DELIMITER //
+DROP TRIGGER IF EXISTS actualizar_stock_producto;
+
+CREATE TRIGGER actualizar_stock_producto
+AFTER INSERT ON detalle_orden
+FOR EACH ROW
+BEGIN
+    DECLARE current_stock INT;
+    
+    -- Obtener el stock actual del producto
+    SELECT stock_producto INTO current_stock
+    FROM producto
+    WHERE id_producto = NEW.id_producto;
+    
+    -- Actualizar el stock restando la cantidad vendida
+    UPDATE producto
+    SET stock_producto = current_stock - NEW.Cantidades_orden
+    WHERE id_producto = NEW.id_producto;
+END;
+//
+DELIMITER ;
+
+
+
+
+2) Trigger para evitar pagos si el estado de la orden es 'cancelada'
+Objetivo: Este trigger previene el registro de pagos para órdenes que han sido canceladas.
+
+
+DELIMITER //
+CREATE TRIGGER prevenir_pago_para_orden_cancelada
+BEFORE INSERT ON pagos
+FOR EACH ROW
+BEGIN
+    DECLARE order_status ENUM('pendiente', 'en proceso', 'completada', 'cancelada', 'pagada');
+    
+    -- Obtener el estado de la orden
+    SELECT Estado_orden INTO order_status
+    FROM orden
+    WHERE id_orden = NEW.id_detalle_orden;
+    
+    -- Si la orden está cancelada, no se puede procesar el pago
+    IF order_status = 'cancelada' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede registrar el pago para una orden cancelada.';
+    END IF;
+END;
+//
+DELIMITER ;
