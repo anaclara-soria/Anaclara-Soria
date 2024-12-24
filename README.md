@@ -562,5 +562,53 @@ Consulta para verificar que la orden fue registrada correctamente:
 ```sql
 SELECT * FROM Orden;
 ```
+---
 
+# Triggers
+
+Ambos triggers tienen el propósito de asegurar la integridad de la base de datos, actualizando automáticamente el stock y garantizando que los pagos solo se realicen en órdenes válidas.
+
+- *`Actualizar_stock_producto`*
+- *`Prevenir_pago_para_orden_cancelada`*
+---
+
+## 1. Actualizar_stock_producto
+*`Objetivo`*: Este trigger tiene como objetivo actualizar el stock de los productos en la tabla producto cuando se crea una nueva orden. Cuando se inserta un registro en la tabla detalle_orden, que está relacionada con la orden, el stock de los productos que están siendo comprados debe ser disminuido en la cantidad especificada en Cantidades_orden.
+
+*`Accion esperada`*: Cuando se inserte una nueva orden en la tabla detalle_orden, el trigger debe reducir el stock de los productos involucrados en la orden.
+
+**Tablas Involucradas**:
+
+- *`Producto`* : Esta tabla nos permite obtener el stock actual del producto a traves del ID del producto.
+- *`Detalle_orden`* : Esta tabla nos permite actualizar el stock de cada producto restando la cantidad vendida cada vez que se agrega una nueva orden.
+
+### Ejemplo: Se crea una orden con un producto con ID 1 (Café) en la tabla detalle_orden:
+
+```sql
+INSERT INTO detalle_orden (id_orden, id_producto, comentarios_orden, Cantidades_orden, Metodo_entrega)
+VALUES (1, 1, 'Cortado', 2.00, 'consumo en local');
+
+```
+#### Resultado esperado: El stock del producto con id_producto = 1 (Café) debería reducirse en la cantidad indicada en Cantidades_orden (en este caso 2).
+---
+
+## 2. Prevenir_pago_para_orden_cancelada
+*`Objetivo`*: Este trigger tiene como objetivo prevenir la inserción de un pago en la tabla pagos si la orden asociada está en estado "cancelada". Si el estado de la orden es "cancelada", el pago no debería ser procesado.
+
+*`Accion esperada`*: Cuando se intente insertar un registro en la tabla pagos, el trigger debe verificar si la orden asociada a ese pago está en estado "cancelada". Si la orden está en estado "cancelada", la inserción del pago debe ser rechazada.
+
+**Tablas Involucradas**:
+
+- *`Pagos`* 
+- *`Detalle_orden`* : Esta tabla nos permite obtener el estado de la orden.
+
+### Ejemplo: Se quiere insertar un pago para una orden con id_orden = 8, que está en estado "cancelada"
+
+```sql
+
+INSERT INTO pagos (id_detalle_orden, fecha_pago, Descuento_pago, Metodo_pago, Estado_pago)
+VALUES (8, '2024-12-10', 0.2, 'efectivo', 'completado');
+
+```
+#### Resultado esperado: El pago no debería insertarse en la tabla pagos si el estado de la orden asociada es "cancelada". El SQL de inserción debería dar un error indicando que no se puede procesar el pago para una orden cancelada.
 ---
