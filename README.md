@@ -13,12 +13,14 @@
 ---
 
 ## Introduccion
+Mi nombre es Anaclara Soria, curso en Coderhouse Base de datos en SQL, y presentare como proyecto una base de datos basado en una cafeteria (ficticio) petfriendly libre de gluten dedicada a ofrecer una experiencia unica en un ambiente calido y moderno con sabores de calidad.
 
-Cafeteria pet friendly libre de gluten dedicada a ofrecer una experiencia unica en un ambiente calido y moderno con sabores de calidad.
+## Situacion Problematica
 
-## Problematica
+Actualmente, mi cafeteria enfrenta varios problemas en la administracion de sus ventas y pedidos. A raiz del incremento de la demanda, se ha vuelto difícil medir la rentabilidad real del negocio, realizar un correcto seguimiento de ventas, controlar el inventario y actualizar la informacion referida a clientes, ordenes y empleados. 
 
-Actualmente, mi cafeteria enfrenta varios problemas en la administracion de sus ventas y pedidos. A raiz del incremento de la demanda, se ha vuelto difícil medir la rentabilidad real del negocio, realizar un correcto seguimiento de ventas, controlar el inventario y actualizar la informacion referida a clientes, ordenes y empleados. Veo necesaria la creacion de un sistema que permita almacenar y manipular toda esta informacion con el objetivo de tenemos mejor visibilidad de los resultados del negocio y tomar decisiones efectivas.
+## Objetivo
+Crear un sistema que permita almacenar y manipular toda esta informacion con el objetivo de tenemos mejor visibilidad de los resultados del negocio y tomar decisiones efectivas.
 
 ## Diagrama Entidad - Relacion
 
@@ -684,7 +686,7 @@ Manuela Baxovanos (Lectura y Escritura Limitada)
 GRANT SELECT, INSERT, UPDATE ON tina_cafe.producto TO 'manuela'@'%';
 GRANT SELECT, INSERT, UPDATE ON tina_cafe.categoria_producto TO 'manuela'@'%';
 GRANT SELECT, INSERT, UPDATE ON tina_cafe.inventario TO 'manuela'@'%';
-GRANT SELECT, INSERT, UPDATE ON tina_cafe.inventario TO 'proveedor'@'%';
+GRANT SELECT, INSERT, UPDATE ON tina_cafe.proveedor TO 'manuela'@'%';
 
 ```
 ### Paso 3: Aplicar los cambios
