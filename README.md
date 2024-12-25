@@ -628,3 +628,98 @@ VALUES (8, '2024-12-10', 0.2, 'efectivo', 'completado');
 ```
 #### Resultado esperado: El pago no debería insertarse en la tabla pagos si el estado de la orden asociada es "cancelada". El SQL de inserción debería dar un error indicando que no se puede procesar el pago para una orden cancelada.
 ---
+
+# Gestión de Roles, Usuarios y Privilegios en MySQL
+
+## Definición de Roles y Privilegios
+
+### Anaclara Soria (Administradora de Base de Datos)
+- **Rol:** Administrador.
+- **Descripción:** Responsable de la gestión y el manipuleo de la base de datos.
+- **Privilegios:** 
+  - Acceso total a todas las tablas.
+  - Capacidad para gestionar usuarios y asignar privilegios (GRANT, REVOKE).
+  - Permisos: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, y más.
+
+### Lucia Castro (Usuario de Solo Lectura)
+- **Rol:** Usuario con privilegios limitados.
+- **Descripción:** Acceso a datos almacenados sin capacidad de modificación.
+- **Privilegios:** 
+  - Permiso solo para `SELECT` en tablas como `Calificaciones`, `Envios`, `Cliente`, 'Orden', 'Pagos'.
+
+### Manuela Baxovanos (Usuario con Permisos de Escritura Limitados)
+- **Rol:** Usuario con permisos restringidos.
+- **Descripción:** Modificaciones permitidas en áreas específicas de la base de datos.
+- **Privilegios:** 
+  - `INSERT`, `UPDATE`, y `SELECT` en tablas como `Producto`, `Categoria_producto`, `Inventario`, `Proveedor`.
+
+---
+
+## Creación de Usuarios y Asignación de Privilegios
+
+Asegura que cada persona tenga accesa solo a los datos que corresponden segun su responsabilidad en el negocio, protegiendo la integridad y confidencialidad de la información. La implementación de un modelo de roles y privilegios facilita la administración y seguridad del sistema.
+
+### Paso 1: Crear los usuarios
+```sql
+CREATE USER 'anaclara'@'%' IDENTIFIED BY 'Anaclara';
+CREATE USER 'lucia'@'%' IDENTIFIED BY 'Lucia';
+CREATE USER 'manuela'@'%' IDENTIFIED BY 'Manuela';
+```
+### Paso 2: Asignar privilegios
+Anaclara Soria (Administrador)
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'anaclara'@'%' WITH GRANT OPTION;
+```
+Lucia Castro (Solo Lectura)
+```sql
+GRANT SELECT ON tina_cafe.calificaciones TO 'lucia'@'%';
+GRANT SELECT ON tina_cafe.envios TO 'lucia'@'%';
+GRANT SELECT ON tina_cafe.cliente TO 'lucia'@'%';
+GRANT SELECT ON tina_cafe.orden TO 'lucia'@'%';
+GRANT SELECT ON tina_cafe.pagos TO 'lucia'@'%';
+
+```
+Manuela Baxovanos (Lectura y Escritura Limitada)
+```sql
+GRANT SELECT, INSERT, UPDATE ON tina_cafe.producto TO 'manuela'@'%';
+GRANT SELECT, INSERT, UPDATE ON tina_cafe.categoria_producto TO 'manuela'@'%';
+GRANT SELECT, INSERT, UPDATE ON tina_cafe.inventario TO 'manuela'@'%';
+GRANT SELECT, INSERT, UPDATE ON tina_cafe.inventario TO 'proveedor'@'%';
+
+```
+### Paso 3: Aplicar los cambios
+```sql
+FLUSH PRIVILEGES;
+```
+---
+
+# Cómo Consultar los Usuarios y sus Permisos en MySQL
+
+Los privilegios están almacenados en las tablas del sistema, como mysql.user y mysql.db. 
+```sql
+SELECT 
+    user AS 'Usuario',
+    host AS 'Host',
+    authentication_string AS 'Contraseña',
+    Select_priv AS 'SELECT',
+    Insert_priv AS 'INSERT',
+    Update_priv AS 'UPDATE',
+    Delete_priv AS 'DELETE',
+    Create_priv AS 'CREATE',
+    Drop_priv AS 'DROP',
+    Grant_priv AS 'GRANT',
+    Index_priv AS 'INDEX',
+    Alter_priv AS 'ALTER',
+    References_priv AS 'REFERENCES',
+    Create_tmp_table_priv AS 'CREATE_TMP_TABLE',
+    Lock_tables_priv AS 'LOCK_TABLES',
+    Create_view_priv AS 'CREATE_VIEW',
+    Show_view_priv AS 'SHOW_VIEW',
+    Create_routine_priv AS 'CREATE_ROUTINE',
+    Alter_routine_priv AS 'ALTER_ROUTINE',
+    Execute_priv AS 'EXECUTE',
+    Event_priv AS 'EVENT',
+    Trigger_priv AS 'TRIGGER'
+FROM 
+    mysql.user;
+```
