@@ -11,7 +11,7 @@
 **Tutor:** Nicolas Maugeri  
 
 ## Presentacion
-https://docs.google.com/presentation/d/1SSa6XDjAFYpgenyTD2TwJ4lAl4FZKZaCAo9YB8wfwRk/edit#slide=id.p
+(https://docs.google.com/presentation/d/1SSa6XDjAFYpgenyTD2TwJ4lAl4FZKZaCAo9YB8wfwRk/edit#slide=id.p)
 
 ---
 
