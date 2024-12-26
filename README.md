@@ -296,7 +296,7 @@ Esta estructura permite un manejo eficiente y organizado de la información del 
 
  # Objetos de la base de datos
 
- ## Vistas aplicadas y Descripciones
+ # Vistas aplicadas y Descripciones
 
 *`Vista_Ventas_por_periodo`*: Sumatoria de los precios de los productos vendidos.
    Objetivo: identificar los periodos con mayores y menores ventas para tomar medidas al respecto.
@@ -350,7 +350,7 @@ Ejemplo de consulta:
 SELECT * FROM vw_ventas_por_empleado;
 ```
 
- ## Funciones
+ # Funciones
 
 - *`Pedidos_por_empleado`*: Función que declara la cantidad de pedidos tomados por empleado. 
 - *`Producto_mas_vendido`*: Función los productos mas vendidos.
@@ -728,3 +728,26 @@ SELECT
 FROM 
     mysql.user;
 ```
+---
+
+# Backup
+## Realizar un Backup en MySQL Workbench con "Export to Self-Contained File"
+
+En MySQL Workbench, la opción "Export to Self-Contained File" permite exportar una base de datos completa a un archivo SQL autocontenido. Este archivo contiene todas las instrucciones necesarias para recrear la estructura y los datos de la base de datos en otro servidor o restaurarla más tarde.
+
+![image](https://github.com/user-attachments/assets/d2d0ca3d-4b5f-4295-9078-2cbcb48f4233)
+![image](https://github.com/user-attachments/assets/7e0b2b08-70fc-418e-99af-a9c66ee3a23f)
+
+
+---
+
+# Herramientas utilizadas
+
+Este repositorio contiene el proyecto final realizado con diferentes herramientas que facilitaron su desarrollo.
+  
+- **MySQL Workbench**
+
+- **GitHub**
+
+
+---
