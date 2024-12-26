@@ -10,6 +10,7 @@
 
 **Tutor:** Nicolas Maugeri  
 
+https://docs.google.com/presentation/d/1SSa6XDjAFYpgenyTD2TwJ4lAl4FZKZaCAo9YB8wfwRk/edit#slide=id.p
 ---
 
 ## Introduccion
